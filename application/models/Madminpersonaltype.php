@@ -23,15 +23,12 @@ class Madminpersonaltype extends CI_Model{
       return $this->db->get($this->_table)->result_array();
     }
 
-    public function getListColors(){
-      $this->db->where('lang','en');
-      $this->db->select('color');
-      return $this->db->get($this->_table)->result_array();
+    public function insertNewPersonalType($data_insert){
+      $this->db->insert($this->_table,$data_insert);
     }
 
-    public function getListResultsNameColor(){
-      $this->db->where('lang','en');
-      $this->db->select('color, name');
+    public function getMaxItemId(){
+      $this->db->select_max('item_id');
       return $this->db->get($this->_table)->result_array();
     }
 

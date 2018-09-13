@@ -29,17 +29,20 @@
             <div class="row">
               <div class="box-header col-xs-6" style="margin-left: 30px">
                 <h3 class="box-title">List </h3>
-                <a href="<?php echo base_url(); ?>admin-results/add"><button type="button" style="margin-left:50px"class="btn btn-primary">Add New Type</button></a>
-                <a href="<?php echo base_url(); ?>admin-questions"><button type="button" style="margin-left:50px"class="btn btn-primary">Change Type Name</button></a>
+                <a href="<?php echo base_url(); ?>admin-results/add-type"><button type="button" style="margin-left:50px"class="btn btn-primary">Add New Type</button></a>
+                <a href="<?php echo base_url(); ?>admin-questions/update-type"><button type="button" style="margin-left:50px"class="btn btn-primary">Change Type Name</button></a>
               </div>
 
               <div class="form-group col-xs-4">
                 <label>Type</label>
-                <select class="form-control">
+                <select class="form-control" id="p_type">
                   <?php foreach($types as $type) { ?>
                     <option value="<?= $type['item_id'] ?>"><?= $type['type_name'] ?></option>
                 <?php } ?>
                 </select>
+                <script>
+                  $("#p_type").val(<?= $type_id;?>);
+                </script>
               </div>
             </div>
             <!-- /.box-header -->

@@ -19,6 +19,7 @@ class AdminResultList extends MY_Controller{
 
     $this->_data['list_results'] = $this->Madminresult->getListPersonalsWithLang('en', $type_id);
     $this->_data['types'] = $personalType;
+    $this->_data['type_id'] = $type_id;
 
     $this->load->view('/admin/result_list.php', $this->_data);
   }
@@ -88,8 +89,52 @@ class AdminResultList extends MY_Controller{
     redirect('admin-results');
   }
 
-  public function add () {
+  public function addType () {
+    $this->load->model("Madminpersonaltype");
+    $this->_data['mess'] = $this->session->flashdata($this->_flash_mess);
 
+    $data = $this->input->post();
+
+    if ($data!=null) {
+      $currentDate = date('Y-m-d');
+
+      $getMaxItemId = $this->Madminpersonaltype->getMaxItemId();
+      $maxItemId = $getMaxItemId[0]['item_id'];
+      echo $maxItemId;
+      $maxItemId++;
+
+      // Update English
+      $data_insert = array(
+        "item_id" => $maxItemId,
+        "type_name" => $data['personal_name_en'],
+        "lang" => 'en',
+        "updated_date" => $currentDate
+      );
+      $this->Madminpersonaltype->insertNewPersonalType($data_insert);
+
+      // Update France
+      $data_insert = array(
+        "item_id" => $maxItemId,
+        "type_name" => $data['personal_name_fr'],
+        "lang" => 'fr',
+        "updated_date" => $currentDate
+      );
+      $this->Madminpersonaltype->insertNewPersonalType($data_insert);
+
+      // Update Vietnamese
+      $data_insert = array(
+        "item_id" => $maxItemId,
+        "type_name" => $data['personal_name_vi'],
+        "lang" => 'vi',
+        "updated_date" => $currentDate
+      );
+      $this->Madminpersonaltype->insertNewPersonalType($data_insert);
+
+
+      $this->session->set_flashdata($this->_flash_mess, "New Personal Type added!");
+      redirect('admin-results?type_id='.$maxItemId);
+    }
+    $this->load->view('/admin/personal_type_add.php', $this->_data);
   }
 
 }
