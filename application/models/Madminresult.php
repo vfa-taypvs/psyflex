@@ -29,10 +29,23 @@ class Madminresult extends CI_Model{
       return $this->db->get($this->_table)->result_array();
     }
 
+    public function getMaxItemId(){
+      $this->db->select_max('item_id');
+      return $this->db->get($this->_table)->result_array();
+    }
+
     public function getListResultsNameColor(){
       $this->db->where('lang','en');
       $this->db->select('color, name');
       return $this->db->get($this->_table)->result_array();
+    }
+
+    public function insertNewPersonal($data_insert){
+      $this->db->insert($this->_table,$data_insert);
+    }
+
+    public function insertListPersonals ($data_insert){
+      $this->db->insert_batch($this->_table,$data_insert);
     }
 
     public function updatePersonalInfo($id,$data_update, $lang){

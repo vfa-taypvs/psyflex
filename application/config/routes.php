@@ -67,6 +67,7 @@ $route['admin-users'] = 'adminUserList';
 $route['admin-users/detail'] = 'adminUserList/detail';
 $route['admin-results/change'] = 'adminResultList/change';
 $route['admin-results/add-type'] = 'adminResultList/addType';
+$route['admin-results/update-type'] = 'adminResultList/updateType';
 $route['admincareeritem'] = 'adminCareerItemMaster';
 $route['adminapplication'] = 'adminCareerApplicationMaster';
 $route['adminapplicationitem'] = 'adminCareerApplicationItemMaster';

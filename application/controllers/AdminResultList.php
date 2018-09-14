@@ -90,6 +90,7 @@ class AdminResultList extends MY_Controller{
   }
 
   public function addType () {
+    $this->load->model("Madminresult");
     $this->load->model("Madminpersonaltype");
     $this->_data['mess'] = $this->session->flashdata($this->_flash_mess);
 
@@ -100,7 +101,6 @@ class AdminResultList extends MY_Controller{
 
       $getMaxItemId = $this->Madminpersonaltype->getMaxItemId();
       $maxItemId = $getMaxItemId[0]['item_id'];
-      echo $maxItemId;
       $maxItemId++;
 
       // Update English
@@ -130,11 +130,108 @@ class AdminResultList extends MY_Controller{
       );
       $this->Madminpersonaltype->insertNewPersonalType($data_insert);
 
+      // Add new Personal for new Type
+      $personal_insert = array ();
+      $defaultColor = '#111111';
+      $actionType = ['thinking', 'behavior'];
+      $getPersonalItemId = $this->Madminresult->getMaxItemId();
+      $maxPersonalItemId = $getPersonalItemId[0]['item_id'];
+      for ($i = 0; $i < sizeof ($actionType); $i++) {
+        $personal = ['Positive', 'Negative', 'Normal'];
+
+        for ($j = 0; $j < sizeof($personal); $j ++) {
+          $maxPersonalItemId ++ ;
+          // insert English
+          $data_insert = array(
+            "name" => 'New '.$personal[$j].' '.$actionType[$i].' - English',
+            "item_id" => $maxPersonalItemId,
+            "type" => $maxItemId,
+            "explanation" => 'New description',
+            "color" => $defaultColor,
+            "lang" => 'en',
+            "updated_date" => $currentDate
+          );
+          array_push ($personal_insert, $data_insert);
+          // insert France
+          $data_insert = array(
+            "name" => 'New '.$personal[$j].' '.$actionType[$i].' - France',
+            "item_id" => $maxPersonalItemId,
+            "type" => $maxItemId,
+            "explanation" => 'New description',
+            "color" => $defaultColor,
+            "lang" => 'fr',
+            "updated_date" => $currentDate
+          );
+          array_push ($personal_insert, $data_insert);
+
+          // Insert Vietnamese
+          $data_insert = array(
+            "name" => 'New '.$personal[$j].' '.$actionType[$i].' - Vietnamese',
+            "item_id" => $maxPersonalItemId,
+            "type" => $maxItemId,
+            "explanation" => 'New description',
+            "color" => $defaultColor,
+            "lang" => 'vi',
+            "updated_date" => $currentDate
+          );
+          array_push ($personal_insert, $data_insert);
+        }
+
+      }
+
+      $this->Madminresult->insertListPersonals($personal_insert);
 
       $this->session->set_flashdata($this->_flash_mess, "New Personal Type added!");
       redirect('admin-results?type_id='.$maxItemId);
     }
     $this->load->view('/admin/personal_type_add.php', $this->_data);
+  }
+
+
+  public function updateType () {
+    $this->load->model("Madminpersonaltype");
+    $this->_data['mess'] = $this->session->flashdata($this->_flash_mess);
+
+    $type_id =  $this->input->get('type_id');
+    $data = $this->input->post();
+
+    if ($type_id!=null) {
+      $currentDate = date('Y-m-d');
+
+      $personalType = $this->Madminpersonaltype->getPersonalTypeAtId($type_id);
+      $this->_data['type'] = $personalType;
+      $this->load->view('/admin/personal_type_add.php', $this->_data);
+
+    } else if ($data!=null) {
+      // Update English
+      $data_update = array(
+        "item_id" => $maxItemId,
+        "type_name" => $data['personal_name_en'],
+        "lang" => 'en',
+        "updated_date" => $currentDate
+      );
+      $this->Madminpersonaltype->insertNewPersonalType($data_insert);
+
+      // Update France
+      $data_insert = array(
+        "item_id" => $maxItemId,
+        "type_name" => $data['personal_name_fr'],
+        "lang" => 'fr',
+        "updated_date" => $currentDate
+      );
+      $this->Madminpersonaltype->insertNewPersonalType($data_insert);
+
+      // Update Vietnamese
+      $data_insert = array(
+        "item_id" => $maxItemId,
+        "type_name" => $data['personal_name_vi'],
+        "lang" => 'vi',
+        "updated_date" => $currentDate
+      );
+      $this->Madminpersonaltype->insertNewPersonalType($data_insert);
+
+    }
+
   }
 
 }

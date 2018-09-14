@@ -30,7 +30,7 @@
               <div class="box-header col-xs-6" style="margin-left: 30px">
                 <h3 class="box-title">List </h3>
                 <a href="<?php echo base_url(); ?>admin-results/add-type"><button type="button" style="margin-left:50px"class="btn btn-primary">Add New Type</button></a>
-                <a href="<?php echo base_url(); ?>admin-questions/update-type"><button type="button" style="margin-left:50px"class="btn btn-primary">Change Type Name</button></a>
+                <a href="<?php echo base_url(); ?>admin-results/update-type?type_id=<?= $type_id;?>"><button type="button" style="margin-left:50px"class="btn btn-primary">Edit Type</button></a>
               </div>
 
               <div class="form-group col-xs-4">
@@ -87,5 +87,10 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+<script>
+$("#p_type").change(function() {
+  // Check input( $( this ).val() ) for validity here
+  window.location.href =  '<?= base_url()?>admin-results?type_id=' + $(this).val();
+});
+</script>
 <?php include 'common/footer.php' ?>

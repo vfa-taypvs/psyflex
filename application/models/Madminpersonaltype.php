@@ -17,7 +17,7 @@ class Madminpersonaltype extends CI_Model{
       return $this->db->get($this->_table)->result_array();
     }
 
-    public function getPersonalsAtId($id){
+    public function getPersonalTypeAtId($id){
       $this->db->where('item_id',$id);
       $this->db->select('*');
       return $this->db->get($this->_table)->result_array();
