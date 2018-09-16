@@ -22,7 +22,8 @@ class Madmintest extends CI_Model{
       return $this->db->get($this->_table)->result_array();
     }
 
-    public function getListTestsOfType($type){
+    public function getListTestsOfType($type, $lang){
+      $this->db->where('lang',$lang);
       $this->db->where('type',$type);
       $this->db->select('*');
       return $this->db->get($this->_table)->result_array();

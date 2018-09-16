@@ -9,12 +9,20 @@ class AdminTestList extends MY_Controller{
 
   public function index(){
     $this->load->model("Madmintest");
+    $this->load->model("Madminpersonaltype");
     // echo "print : " . encrypted("kantana"); // Encrypt password
     // Flash Message
     $this->_data['mess'] = $this->session->flashdata($this->_flash_mess);
     // Validate Input Rule
+    $type_id =  $this->input->get('type_id');
+    if (!isset($type_id))
+      $type_id = 1;
 
-    $this->_data['list_test'] = $this->Madmintest->getListTestsWithLang('en');
+    $personalType = $this->Madminpersonaltype->getListPersonalType();
+
+    $this->_data['types'] = $personalType;
+    $this->_data['type_id'] = $type_id;
+    $this->_data['list_test'] = $this->Madmintest->getListTestsOfType($type_id,'en');
     $this->load->view('/admin/test_list.php', $this->_data);
   }
 

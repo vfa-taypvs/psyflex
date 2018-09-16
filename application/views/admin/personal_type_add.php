@@ -23,11 +23,13 @@
       $name_en = "";
       $name_fr = "";
       $name_vi = "";
+      $item_id = "";
       if (isset($type)) {
         $name_en = $type[0]['type_name'];
         $name_fr = $type[1]['type_name'];
         $name_vi = $type[2]['type_name'];
         $form_controller = "updateType";
+        $item_id = $type[0]['item_id'];
       } else {
         $form_controller = "addType";
       }
@@ -41,7 +43,7 @@
 
           <form action="<?php echo base_url(); ?>adminResultList/<?= $form_controller;?>" method="post">
             <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-            <input type="hidden" name="type_id" value="<?php echo $type[0]['item_id']; ?>">
+            <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
             <div class="form-group">
               <label>Personal Type Name</label>
               <div class="row">

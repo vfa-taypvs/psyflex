@@ -32,7 +32,7 @@ class Madminpersonaltype extends CI_Model{
       return $this->db->get($this->_table)->result_array();
     }
 
-    public function updatePersonalInfo($id,$data_update, $lang){
+    public function updatePersonalTypeInfo($id,$data_update, $lang){
       $this->db->where('item_id',$id);
       $this->db->where('lang',$lang);
       $this->db->update($this->_table,$data_update);

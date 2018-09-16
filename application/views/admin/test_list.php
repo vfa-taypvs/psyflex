@@ -26,9 +26,23 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">List </h3>
-              <a href="<?php echo base_url(); ?>admin-questions"><button type="button" style="margin-left:100px"class="btn btn-primary">Add New</button></a>
+            <div class="row">
+              <div class="box-header col-xs-6" style="margin-left: 30px">
+                <h3 class="box-title">List </h3>
+                <a href="<?php echo base_url(); ?>admin-questions?type_id=<?= $type_id; ?>"><button type="button" style="margin-left:100px"class="btn btn-primary">Add New</button></a>
+              </div>
+
+              <div class="form-group col-xs-4">
+                <label>Personal Type</label>
+                <select class="form-control" id="p_type">
+                  <?php foreach($types as $type) { ?>
+                    <option value="<?= $type['item_id'] ?>"><?= $type['type_name'] ?></option>
+                <?php } ?>
+                </select>
+                <script>
+                  $("#p_type").val(<?= $type_id;?>);
+                </script>
+              </div>
             </div>
             <!-- /.box-header -->
 
@@ -69,5 +83,10 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+  <script>
+  $("#p_type").change(function() {
+    // Check input( $( this ).val() ) for validity here
+    window.location.href =  '<?= base_url()?>admin-tests?type_id=' + $(this).val();
+  });
+  </script>
 <?php include 'common/footer.php' ?>
