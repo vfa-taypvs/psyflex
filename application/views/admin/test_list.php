@@ -64,7 +64,7 @@
                   echo "<td>".$test['title']."</td>";
                   echo "<td>";
                   echo "<div class='btn-group'>";
-                  echo '<a href="'.base_url().'admin-questions?id='.$cipherID.'"><button type="button" class="btn btn-info">Edit</button></a>';
+                  echo '<a href="'.base_url().'admin-questions?id='.$cipherID.'&&type_id='.$type_id.'"><button type="button" class="btn btn-info">Edit</button></a>';
                   echo '<a href="'.base_url().'admin-questions/remove?id='.$cipherID.'"><button type="button" class="btn btn-info">Remove</button></a>';
                   echo "</div>";
                   echo "</td>";

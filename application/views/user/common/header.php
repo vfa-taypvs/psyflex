@@ -29,7 +29,7 @@
                         <?php
                         for ($i = 0; $i < sizeof($tests); $i++) {
                           $cipherID = encrypted($tests[$i]['item_id']);
-                          echo '<li><a href="'.base_url().'tests?test_id='.$cipherID.'">'.$tests[$i]['title'].'</a></li>';
+                          echo '<li><a href="'.base_url().'tests?test_id='.$cipherID.'&&type_id='.$tests[$i]['type_id'].'">'.$tests[$i]['title'].'</a></li>';
                         }
                         ?>
                       </ul>

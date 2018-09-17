@@ -38,6 +38,7 @@
           <form action="" method="post">
             <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
             <input type="hidden" id="qeCount" name="qeCount" value="0">
+            <input type="hidden" id="type_id" name="type_id" value="<?php echo $type_id; ?>">
             <select id="colorsResult" style="display:none" >
               <?php
               for ($i = 0; $i < sizeof($colors); $i++) {

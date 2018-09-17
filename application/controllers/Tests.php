@@ -41,6 +41,8 @@ class Tests extends CI_Controller{
     }
 
     $testIdCipher =  $this->input->get('test_id');
+    $type_id =  $this->input->get('type_id');
+
     $testId = 0;
     if ($testIdCipher!=null) {
       $testId = decrypted($testIdCipher);
@@ -71,6 +73,7 @@ class Tests extends CI_Controller{
     $this->_data['q_index'] = $currentQuestionIndex;
     $this->_data['testId'] = $testId;
     $this->_data['id_page'] = "l_question";
+    $this->_data['type_id'] = $type_id;
     $this->load->view('/user/tests.php', $this->_data);
   }
 

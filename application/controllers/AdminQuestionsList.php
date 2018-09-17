@@ -18,6 +18,9 @@ class AdminQuestionsList extends MY_Controller{
     // Validate Input Rule
 
     $idCipher =  $this->input->get('id');
+    $type_id =  $this->input->get('type_id');
+    if (!isset($type_id))
+      $type_id = 1;
 
     $isUpdate = 0;
     $id = 0;
@@ -58,6 +61,7 @@ class AdminQuestionsList extends MY_Controller{
     }
     $colors = $this->Madminresult->getListResultsNameColor();
     $this->_data['colors'] = $colors;
+    $this->_data['type_id'] = $type_id;
 
     $this->load->view('/admin/question_list.php', $this->_data);
   }
@@ -104,7 +108,7 @@ class AdminQuestionsList extends MY_Controller{
       "item_id" => $currentTimestamp,
       "title" => $data['test_name_en'],
       "lang" => 'en',
-      "type" => '1',
+      "type" => $data['type_id'],
       "position" => $data['position'],
       "updated_date" => $currentDate,
       "delete" => $data['status']
@@ -116,7 +120,7 @@ class AdminQuestionsList extends MY_Controller{
       "item_id" => $currentTimestamp,
       "title" => $data['test_name_fr'],
       "lang" => 'fr',
-      "type" => '1',
+      "type" => $data['type_id'],
       "position" => $data['position'],
       "updated_date" => $currentDate,
       "delete" => $data['status']
@@ -128,7 +132,7 @@ class AdminQuestionsList extends MY_Controller{
       "item_id" => $currentTimestamp,
       "title" => $data['test_name_vn'],
       "lang" => 'vi',
-      "type" => '1',
+      "type" => $data['type_id'],
       "position" => $data['position'],
       "updated_date" => $currentDate,
       "delete" => $data['status']
@@ -163,7 +167,7 @@ class AdminQuestionsList extends MY_Controller{
         "test_id" => $test_id,
         "lang" => 'en',
         "position" => $i,
-        "type" => 1,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate,
         "delete" => '0'
       );
@@ -177,7 +181,7 @@ class AdminQuestionsList extends MY_Controller{
         "test_id" => $test_id,
         "lang" => 'fr',
         "position" => $i,
-        "type" => 1,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate,
         "delete" => '0'
       );
@@ -191,7 +195,7 @@ class AdminQuestionsList extends MY_Controller{
         "test_id" => $test_id,
         "lang" => 'vi',
         "position" => $i,
-        "type" => 1,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate,
         "delete" => '0'
       );
@@ -208,7 +212,7 @@ class AdminQuestionsList extends MY_Controller{
         "questions" => $currentTimestamp.'_'.$i, // add questions ID
         "test_id" => $test_id,
         "color" => $postData['answer_color_1_'.$i],
-        "type" => 1,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -222,7 +226,7 @@ class AdminQuestionsList extends MY_Controller{
         "questions" => $currentTimestamp.'_'.$i, // add questions ID
         "test_id" => $test_id,
         "color" => $postData['answer_color_1_'.$i],
-        "type" => 1,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -236,7 +240,7 @@ class AdminQuestionsList extends MY_Controller{
         "questions" => $currentTimestamp.'_'.$i, // add questions ID
         "test_id" => $test_id,
         "color" => $postData['answer_color_1_'.$i],
-        "type" => 1,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -252,7 +256,7 @@ class AdminQuestionsList extends MY_Controller{
         "questions" => $currentTimestamp.'_'.$i, // add questions ID
         "test_id" => $test_id,
         "color" => $postData['answer_color_2_'.$i],
-        "type" => 2,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -266,7 +270,7 @@ class AdminQuestionsList extends MY_Controller{
         "questions" => $currentTimestamp.'_'.$i, // add questions ID
         "test_id" => $test_id,
         "color" => $postData['answer_color_2_'.$i],
-        "type" => 2,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -280,7 +284,7 @@ class AdminQuestionsList extends MY_Controller{
         "questions" => $currentTimestamp.'_'.$i, // add questions ID
         "test_id" => $test_id,
         "color" => $postData['answer_color_2_'.$i],
-        "type" => 2,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -297,7 +301,7 @@ class AdminQuestionsList extends MY_Controller{
         "test_id" => $test_id,
         // "color" => $postData['answer_color_3_'.$i],
         "color" => '#bdbdbd',
-        "type" => 3,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -313,7 +317,7 @@ class AdminQuestionsList extends MY_Controller{
         "test_id" => $test_id,
         // "color" => $postData['answer_color_3_'.$i],
         "color" => '#bdbdbd',
-        "type" => 3,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -329,7 +333,7 @@ class AdminQuestionsList extends MY_Controller{
         "test_id" => $test_id,
         // "color" => $postData['answer_color_3_'.$i],
         "color" => '#bdbdbd',
-        "type" => 3,
+        "type" => $postData['type_id'],
         "updated_date" => $currentDate
       );
 
@@ -357,7 +361,7 @@ class AdminQuestionsList extends MY_Controller{
     // Insert Test for English
     $data_insert_en = array(
       "title" => $data['test_name_en'],
-      "type" => '1',
+      "type" => $data['type_id'],
       "updated_date" => $currentDate,
       "position" => $data['position'],
       "delete" => $data['status']
@@ -367,7 +371,7 @@ class AdminQuestionsList extends MY_Controller{
     // Insert Test for France
     $data_insert_fr = array(
       "title" => $data['test_name_fr'],
-      "type" => '1',
+      "type" => $data['type_id'],
       "updated_date" => $currentDate,
       "position" => $data['position'],
       "delete" => $data['status']
@@ -377,7 +381,7 @@ class AdminQuestionsList extends MY_Controller{
     // Insert Test for vn
     $data_insert_vn = array(
       "title" => $data['test_name_vn'],
-      "type" => '1',
+      "type" => $data['type_id'],
       "updated_date" => $currentDate,
       "position" => $data['position'],
       "delete" => $data['status']
