@@ -37,6 +37,7 @@ class AdminTestResultList extends MY_Controller{
     // Validate Input Rule
 
     $idCipher =  $this->input->get('id');
+    $type_id =  $this->input->get('personal_type_id');
 
     $id = 0;
     if ($idCipher!=null) {
@@ -44,7 +45,7 @@ class AdminTestResultList extends MY_Controller{
     }
 
     $result = $this->Madmintestresult->getListResultsFromId($id, 'en');
-    $personals = $this->Madminresult->getListPersonalsWithLang('en');
+    $personals = $this->Madminresult->getListPersonalsWithLang('en', $type_id);
     $answers = $this->Madminresultdetail->getListResultDetail('en', $result [0]['id']);
 
     // print("<pre>".print_r($answers,true)."</pre>");

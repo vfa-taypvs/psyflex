@@ -7,7 +7,7 @@ class Madmintestresult extends CI_Model{
 
     public function getListResults($lang, $page, $limit){
       // $sql = "select result.*, t.title, u.first_name from result join tests as t limit 10 offset ".$page;
-      $this->db->select('result.*, t.title, u.first_name');
+      $this->db->select('result.*, t.title, u.first_name, t.type');
       $this->db->where('t.lang',$lang);
       $this->db->join('tests t', 't.item_id = result.test_id');
       $this->db->join('users u', 'u.id = result.user_id');
@@ -31,7 +31,7 @@ class Madmintestresult extends CI_Model{
     // }
 
     public function getListResultsFromUser($id, $lang){
-      $this->db->select('result.*, t.title');
+      $this->db->select('result.*, t.title, t.type');
       $this->db->where('result.user_id',$id);
       $this->db->where('t.lang',$lang);
       $this->db->join('tests t', 't.item_id = result.test_id');

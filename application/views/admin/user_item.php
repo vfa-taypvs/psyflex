@@ -70,7 +70,7 @@
                       echo "<td>".$test['updated_date']."</td>";
                       echo "<td>";
                       echo "<div class='btn-group'>";
-                      echo '<a href="'.base_url().'admin-test-results/detail?id='.$cipherID.'"><button type="button" class="btn btn-info">View Result</button></a>';
+                      echo '<a href="'.base_url().'admin-test-results/detail?id='.$cipherID.'&&personal_type_id='.$test['type'].'"><button type="button" class="btn btn-info">View Result</button></a>';
                       echo "</div>";
                       echo "</td>";
                       echo "</tr>";
