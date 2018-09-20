@@ -34,9 +34,10 @@ class Madminresult extends CI_Model{
       return $this->db->get($this->_table)->result_array();
     }
 
-    public function getListResultsNameColor(){
+    public function getListResultsNameColor($type_id){
       $this->db->where('lang','en');
       $this->db->select('color, name');
+      $this->db->where('type',$type_id);
       return $this->db->get($this->_table)->result_array();
     }
 

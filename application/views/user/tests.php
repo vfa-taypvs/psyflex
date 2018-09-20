@@ -79,7 +79,7 @@
               location.reload();
             else if (data.result ==  "finish")
               // similar behavior as an HTTP redirect
-              window.location.replace("<?php echo base_url(); ?>result?id=" + data.id);
+              window.location.replace("<?php echo base_url(); ?>result?id=" + data.id + "&type_id=" + data.type_id );
         },
         error : function(data) {
             // do something

@@ -41,6 +41,7 @@ class Result extends CI_Controller{
     }
 
     $testIdCipher =  $this->input->get('id');
+    $type_id =  $this->input->get('type_id');
     $testId = 0;
     if ($testIdCipher!=null) {
       $testId = decrypted($testIdCipher);
@@ -51,7 +52,7 @@ class Result extends CI_Controller{
 
     // print("<pre>".print_r($answers,true)."</pre>");
 
-    $results = $this->Muserresult->getResultByLang($lang);
+    $results = $this->Muserresult->getResultByLang($lang, $type_id);
 
     $resultInit = $this->initResultList($answers, $results);
 

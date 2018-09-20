@@ -59,7 +59,7 @@ class AdminQuestionsList extends MY_Controller{
       $this->_data['questions'] = $questionsData;
       $this->_data['tests'] = $test;
     }
-    $colors = $this->Madminresult->getListResultsNameColor();
+    $colors = $this->Madminresult->getListResultsNameColor($type_id);
     $this->_data['colors'] = $colors;
     $this->_data['type_id'] = $type_id;
 

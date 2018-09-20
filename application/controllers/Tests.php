@@ -54,6 +54,7 @@ class Tests extends CI_Controller{
     if ($answer == null || $answer == "") {
       $answer = array ();
       $answer['test'] = $testId;
+      $answer['type_id'] = $type_id;
       $answer['current_question_index'] = $currentQuestionIndex;
     } else {
       $currentQuestionIndex = $answer['current_question_index'];
@@ -127,11 +128,12 @@ class Tests extends CI_Controller{
       $this->session->set_userdata('answers_result_'.$testId, $answer);
       $this->session->unset_userdata('answers_'.$testId);
 
-      $this->insertTestResult($answer, $testId);
+      $this->insertTestResult($answer, $testId, $answer['type_id']);
       $cipherID = encrypted ($testId);
 
       $data = array(
               'result'      => "finish",
+              'type_id' => $answer['type_id'],
               'id' =>  $cipherID
               );
       echo json_encode($data);
@@ -147,11 +149,11 @@ class Tests extends CI_Controller{
 
   }
 
-  private function insertTestResult ($answers, $testId) {
+  private function insertTestResult ($answers, $testId, $type_id) {
     $points = $answers['point'];
     $questions = $answers['questions'];
     $answerArray = $answers['answers'];
-    $results = $this->Muserresult->getResultByLang('en');
+    $results = $this->Muserresult->getResultByLang('en', $type_id);
 
     $points_insert = array ();
     for ($i = 0; $i < sizeof($results); $i++) {
