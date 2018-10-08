@@ -64,8 +64,6 @@ class Tests extends CI_Controller{
     $answer['length'] = sizeof($questions);
     $this->session->set_userdata('answers_'.$testId, $answer);
 
-    print("<pre>".print_r($answer,true)."</pre>");
-
     $questionsInit = $this->initQuestionsList($questions, $lang);
 
     $this->session->set_userdata('questions', $questionsInit);

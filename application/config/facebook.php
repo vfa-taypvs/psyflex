@@ -21,12 +21,12 @@
 // $config['facebook_app_secret']          = '4481057ba8c8f3c092a297d3bf9d7c62';
 
 // Demo
-// $config['facebook_app_id']              = '346601099198491';
-// $config['facebook_app_secret']          = '768cd70b9e1c7fe47ccd29edf97ed300';
+$config['facebook_app_id']              = '346601099198491';
+$config['facebook_app_secret']          = '768cd70b9e1c7fe47ccd29edf97ed300';
 
 // Local
-$config['facebook_app_id']              = '1679526832084959';
-$config['facebook_app_secret']          = '4481057ba8c8f3c092a297d3bf9d7c62';
+// $config['facebook_app_id']              = '1679526832084959';
+// $config['facebook_app_secret']          = '4481057ba8c8f3c092a297d3bf9d7c62';
 
 $config['facebook_login_type']          = 'web';
 $config['facebook_login_redirect_url']  = 'login/facebook_auth';

@@ -7,6 +7,6 @@ $lang['login'] = 'S\'identifier';
 $lang['register'] = 'Inscription';
 $lang['logout'] = 'Connectez - Out';
 $lang['my_score'] = 'My mon score';
-
+$lang['privacy_policy'] = 'Politique de confidentialité';
 
 ?>

@@ -7,6 +7,6 @@ $lang['login'] = 'Đăng nhập';
 $lang['register'] = 'Đăng ký';
 $lang['logout'] = 'Đăng xuất';
 $lang['my_score'] = 'Điểm của tôi';
-
+$lang['privacy_policy'] = 'Chính sách riêng tư';
 
 ?>

@@ -392,3 +392,7 @@ ul {
   background: #ff6600;
   color: white;
 }
+
+body .menu-header ul li a{
+  font-family: Arial !important;
+}

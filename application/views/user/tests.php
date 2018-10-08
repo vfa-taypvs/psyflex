@@ -35,8 +35,6 @@
     var colorBtn3 = LightenDarkenColor(baseColor1, 15);
     var colorBtn4 = LightenDarkenColor(baseColor1, 30);
 
-    console.log(colorBtn2);
-
     var colorBtn5 = LightenDarkenColor(baseColor2, 0);
 
     var colorBtn6 = LightenDarkenColor(baseColor3, 40);
@@ -44,9 +42,7 @@
     var colorBtn8 = LightenDarkenColor(baseColor3, -15);
     var colorBtn9 = LightenDarkenColor(baseColor3, -45);
 
-    console.log(colorBtn1);
     $(document).ready(function(){
-      console.log(colorBtn1);
       $('.btn01').css('background', colorBtn1);
       $('.btn02').css('background', colorBtn2);
       $('.btn03').css('background', colorBtn3);

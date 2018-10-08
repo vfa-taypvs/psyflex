@@ -115,8 +115,17 @@ class Login extends CI_Controller{
     include_once APPPATH."libraries/twitter-oauth-php-codexworld/twitteroauth.php";
 
     //Twitter API Configuration
-    $consumerKey = 'OkxmkjQ4oXiukr467VuDaN1B7';
-    $consumerSecret = 'GCFqUIHBvLXctm03XKFVshdqhYERvEtUfbq9NzHHsLSYMxYARR';
+    // Local
+    // $consumerKey = 'OkxmkjQ4oXiukr467VuDaN1B7';
+    // $consumerSecret = 'GCFqUIHBvLXctm03XKFVshdqhYERvEtUfbq9NzHHsLSYMxYARR';
+
+    // Demo
+    $consumerKey = '7m5Jezo9BUxUDKWfO1hitDYnK';
+    $consumerSecret = 'xPLLfMgnPbNPVbHEwBuZ7JfdKjNpOzFCbbgnEKMLrZ6ooLEfyH';
+
+    // Real
+    // $consumerKey = '';
+    // $consumerSecret = '';
 
     //Get existing token and token secret from session
     $sessToken = $this->session->userdata('token');
@@ -163,19 +172,33 @@ class Login extends CI_Controller{
   }
 
   private function getTwitterAuth () {
-    //Twitter API Configuration
-    $consumerKey = 'OkxmkjQ4oXiukr467VuDaN1B7';
-    $consumerSecret = 'GCFqUIHBvLXctm03XKFVshdqhYERvEtUfbq9NzHHsLSYMxYARR';
-    $oauthCallback = base_url().'login/twitter_auth';
     //Include the twitter oauth php libraries
     include_once APPPATH."libraries/twitter-oauth-php-codexworld/twitteroauth.php";
+
+    //Twitter API Configuration
+    // Local
+    // $consumerKey = 'OkxmkjQ4oXiukr467VuDaN1B7';
+    // $consumerSecret = 'GCFqUIHBvLXctm03XKFVshdqhYERvEtUfbq9NzHHsLSYMxYARR';
+    // $connection = new TwitterOAuth($consumerKey, $consumerSecret,'2477966881-1wO5QyQ89aTD1OReXdsP8fU4ZLSI3k3zB4G1UTK', 'BnpFvO5TOEtp5djJ95A5u2Ytt1KAZ2h4bOW1zuUcJKX2N');
+
+    // Demo
+    $consumerKey = '7m5Jezo9BUxUDKWfO1hitDYnK';
+    $consumerSecret = 'xPLLfMgnPbNPVbHEwBuZ7JfdKjNpOzFCbbgnEKMLrZ6ooLEfyH';
+    $connection = new TwitterOAuth($consumerKey, $consumerSecret,'770572538459983873-N9519D6BfEupftxen2UywBqW5r5xgtX', 'On3mcH2sctiILPxeXxI7Gkq8ZlYFrXByZ2aWkW8utWeAY');
+
+    // Real
+    // $consumerKey = '';
+    // $consumerSecret = '';
+    // $connection = new TwitterOAuth($consumerKey, $consumerSecret,'', '');
+
+    $oauthCallback = base_url().'login/twitter_auth';
 
     //unset token and token secret from session
     $this->session->unset_userdata('token');
     $this->session->unset_userdata('token_secret');
 
     //Fresh authentication
-    $connection = new TwitterOAuth($consumerKey, $consumerSecret,'2477966881-1wO5QyQ89aTD1OReXdsP8fU4ZLSI3k3zB4G1UTK', 'BnpFvO5TOEtp5djJ95A5u2Ytt1KAZ2h4bOW1zuUcJKX2N');
+
     $requestToken = $connection->getRequestToken($oauthCallback);
 
     //Received token info from twitter
@@ -274,8 +297,19 @@ class Login extends CI_Controller{
     include_once APPPATH . "libraries/google-api-php-client-master/src/Google/Service/Oauth2.php";
 
     // Store values in variables from project created in Google Developer Console
-    $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
-    $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
+    // Local
+    // $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
+    // $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
+    // $redirect_uri = 'http://localhost/psyflex/login/google_auth';
+
+    // Demo
+    $client_id = '942214225805-mt8jumqnc7f25ifprv9ms8197cmahn84.apps.googleusercontent.com';
+    $client_secret = 'oTkb8gwQjoAFLi0QNMd6iHpU';
+    $redirect_uri = 'http://demo.psyflex.fr/login/google_auth';
+
+    // Real
+    // $client_id = '';
+    // $client_secret = '';
     $redirect_uri = 'http://localhost/psyflex/login/google_auth';
     $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
 
@@ -334,10 +368,23 @@ class Login extends CI_Controller{
     include_once APPPATH . "libraries/google-api-php-client-master/src/Google/Service/Oauth2.php";
 
     // Store values in variables from project created in Google Developer Console
-    $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
-    $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
-    $redirect_uri = 'http://localhost/psyflex/login/google_auth';
+    //Local
+    // $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
+    // $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
+    // $redirect_uri = 'http://localhost/psyflex/login/google_auth';
+    // $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
+
+    // Demo
+    $client_id = '942214225805-mt8jumqnc7f25ifprv9ms8197cmahn84.apps.googleusercontent.com';
+    $client_secret = 'oTkb8gwQjoAFLi0QNMd6iHpU';
+    $redirect_uri = 'http://demo.psyflex.fr/login/google_auth';
     $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
+
+    // Local
+    // $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
+    // $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
+    // $redirect_uri = 'http://localhost/psyflex/login/google_auth';
+    // $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
 
     // Create Client Request to access Google API
     $client = new Google_Client();

@@ -19,7 +19,7 @@
           <div class="row">
             <div class="col-md-3"><img src="<?php echo base_url(); ?>asset/img/home/logo.png" alt="logo" class="logo"><span class="company-name">Psyflex</span></div>
             <div class="col-md-9">
-              <nav class="navbar">
+              <nav class="navbar menu-header">
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('home');?></a></li>
                     <li class="dropdown">
@@ -48,6 +48,7 @@
                         <li><a href="<?php echo base_url(); ?>register"><?php echo $this->lang->line('register');?></a></li>
                       </ul>
                     </li>
+                    <li class="active"><a href="<?php echo base_url().'privacyPolicy'; ?>"><?php echo $this->lang->line('privacy_policy');?></a></li>
                     <?php
                     }?>
 
