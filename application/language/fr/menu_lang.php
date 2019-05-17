@@ -1,6 +1,6 @@
 <?php
 
-$lang['home'] = 'MAISON';
+$lang['home'] = 'ACCUEIL';
 $lang['take_test'] = 'Passer un test';
 $lang['login_register'] = 'S\'identifier/Inscription';
 $lang['login'] = 'S\'identifier';

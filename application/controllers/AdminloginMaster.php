@@ -35,7 +35,7 @@ class AdminloginMaster extends CI_Controller{
             $this->session->set_flashdata($this->_flash_mess, "Wrong username or password!");
             redirect('adminlogin');
           } else {
-            $user = $this->session->set_userdata('userlogin', $login_id);
+            $user = $this->session->set_userdata('psyflex_userlogin', $login_id);
             redirect('admin-tests');
           }
         }

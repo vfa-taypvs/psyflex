@@ -24,7 +24,7 @@
 $config['facebook_app_id']              = '346601099198491';
 $config['facebook_app_secret']          = '768cd70b9e1c7fe47ccd29edf97ed300';
 
-// Local
+// Local - Setting TayPVS
 // $config['facebook_app_id']              = '1679526832084959';
 // $config['facebook_app_secret']          = '4481057ba8c8f3c092a297d3bf9d7c62';
 

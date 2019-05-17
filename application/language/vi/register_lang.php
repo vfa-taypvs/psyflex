@@ -10,5 +10,6 @@ $lang['not_share'] = 'Chúng tôi không bao giờ chia sẻ thông tin email c�
 $lang['password'] = 'Password';
 $lang['register'] = 'Đăng ký';
 $lang['wrong_email_password'] = 'Sai email hoặc mật khẩu!';
-
+$lang['quick_access'] = 'Bạn có thể <span style="color:red"> <b> ĐĂNG NHẬP NHANH </b> </span> bằng cách sử dụng tài khoản mạng xã hội:';
+$lang['user_personal_acc'] = 'Hoặc sử dụng email cá nhân:';
 ?>

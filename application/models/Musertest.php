@@ -16,5 +16,13 @@ class Musertest extends CI_Model{
       $this->db->insert($this->_table,$data_insert);
     }
 
+    public function getTestFromId ($lang, $id) {
+      $this->db->where('lang',$lang);
+      $this->db->where('item_id',$id);
+      $this->db->where('delete',0);
+      $this->db->select('*');
+      return $this->db->get($this->_table)->result_array();
+    }
+
 }
 ?>

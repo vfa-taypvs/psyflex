@@ -7,7 +7,7 @@ class MY_Controller extends CI_Controller
   }
 
   public function is_logged_in(){
-    $user = $this->session->userdata('userlogin');
+    $user = $this->session->userdata('psyflex_userlogin');
     if(isset($user)) {
 
     }
@@ -15,5 +15,6 @@ class MY_Controller extends CI_Controller
       redirect ('/adminlogin');
     }
   }
+
 }
 ?>

@@ -27,7 +27,7 @@ class Result extends CI_Controller{
     $this->lang->load('menu',$lang);
     changeLanguage($lang);
 
-    // Always init tests
+    // Always init tests for Menu
     $tests = $this->Musertest->getListTestByLang($lang);
     $this->_data['tests'] = $tests;
     // -----------------------
@@ -76,6 +76,68 @@ class Result extends CI_Controller{
     }
 
     return $resultArray;
+  }
+
+  private function initResultListFromPoints ($points, $resultDtb) {
+    $resultArray = $resultDtb;
+    for ($i = 0; $i < sizeof($resultDtb); $i++) {
+      $resultArray [$i]['point'] = $points['point_'.($i + 1)];
+    }
+    return $resultArray;
+  }
+
+  public function compare () {
+    $this->load->model("Muserquestion");
+    $this->load->model("Museranswer");
+    $this->load->model("Muserresult");
+    $this->load->model("Musertest");
+
+    $this->_data['title'] = 'Result Comparison';
+    $this->_data['id_page'] = "l_result";
+
+    // -----------------------
+    // Get Langugage Input - Change Language
+    $lang =  $this->input->get('lang');
+    if ($lang == null || $lang == "") {
+      $lang = $this->session->userdata('current_lang');
+      if ($lang == "")
+        $lang = "vi";
+    }
+    $this->lang->load('menu',$lang);
+    changeLanguage($lang);
+
+    // Always init tests
+    $tests = $this->Musertest->getListTestByLang($lang);
+    $this->_data['tests'] = $tests;
+    // -----------------------
+    // UserLogin
+    $user = $this->session->userdata('user');
+    $this->_data['user'] = $user;
+    if (!isset($user)) {
+      // Have to Login for doing Test
+      $this->session->set_flashdata($this->_flash_mess, "Please login to do the test!");
+      redirect('login');
+    }
+
+    $test_id =  $this->input->get('test');
+    $type_id = $tests = $this->Musertest->getTestFromId($lang, $test_id);
+    $results = $this->Muserresult->getResultByLang($lang, $type_id[0]['type']);
+
+    // Result 1
+    $result_id_1 =  $this->input->get('id_1');
+    $points = $this->Muserresult->getPointFromResult($result_id_1);
+    $resultInit = $this->initResultListFromPoints($points[0], $results);
+    // print("<pre>".print_r($resultInit,true)."</pre>");
+    $this->_data['results_1'] = $resultInit;
+
+    // Result 2
+    $result_id_2 =  $this->input->get('id_2');
+    $points = $this->Muserresult->getPointFromResult($result_id_2);
+    $resultInit = $this->initResultListFromPoints($points[0], $results);
+    // print("<pre>".print_r($resultInit,true)."</pre>");
+    $this->_data['results_2'] = $resultInit;
+
+    $this->load->view('/user/result_compare.php', $this->_data);
   }
 
 

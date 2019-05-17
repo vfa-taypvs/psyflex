@@ -24,8 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // Local URL
-// $config['base_url'] = 'http://demo.psyflex.fr/';
+// $config['base_url'] = 'https://psyflex.fr/';
+// $config['base_url'] = 'https://demo.psyflex.fr/';
 $config['base_url'] = 'http://localhost/psyflex/';
+// $config['environment'] = 'DEMO';
+// $config['environment'] = 'REAL';
+$config['environment'] = 'LOCAL';
 
 /*
 |--------------------------------------------------------------------------
@@ -383,11 +387,12 @@ $config['encryption_key'] = '';
 */
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 7200;
+$config['sess_expiration'] = 3600 * 5;
 $config['sess_save_path'] = NULL;
 // $config['sess_save_path'] = sys_get_temp_dir();
 $config['sess_match_ip'] = FALSE;
-$config['sess_time_to_update'] = 300;
+// $config['sess_time_to_update'] = 300;
+$config['sess_time_to_update'] = 3600 * 5;
 $config['sess_regenerate_destroy'] = FALSE;
 
 /*
@@ -527,3 +532,84 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+// Social Item Config
+$config['facebook_local'] = array (
+                          'facebook_app_id' => '1679526832084959',
+                          'facebook_app_secret' => '4481057ba8c8f3c092a297d3bf9d7c62'
+                        );
+
+$config['facebook_demo'] = array (
+                          'facebook_app_id' => '346601099198491',
+                          'facebook_app_secret' => '768cd70b9e1c7fe47ccd29edf97ed300'
+                        );
+
+$config['facebook_real'] = array (
+                          'facebook_app_id' => '1679526832084959',
+                          'facebook_app_secret' => '4481057ba8c8f3c092a297d3bf9d7c62'
+                        );
+
+
+$config['google_local'] = array (
+                          'client_id' => '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com',
+                          'client_secret' => 'DoZkp8WsXh1DXxaD-9Pg61Kd',
+                          'redirect_uri' => 'http://localhost/psyflex/login/google_auth',
+                          'simple_api_key' => 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo'
+                        );
+
+$config['google_demo'] = array (
+                          'client_id' => '942214225805-mt8jumqnc7f25ifprv9ms8197cmahn84.apps.googleusercontent.com',
+                          'client_secret' => 'oTkb8gwQjoAFLi0QNMd6iHpU-9Pg61Kd',
+                          'redirect_uri' => 'https://demo.psyflex.fr/login/google_auth',
+                          'simple_api_key' => 'AIzaSyBFF8akLRHLNqDMxy0B4FYfvU7AztRE6vE'
+                        );
+
+$config['google_real'] = array (
+                          'client_id' => '1039681692082-1l1n2sjfrojris6lda3udaqjnvr3duil.apps.googleusercontent.com',
+                          'client_secret' => 'XmhRWpyELAryzc_T7fmpk8Cc',
+                          'redirect_uri' => 'https://psyflex.fr/login/google_auth',
+                          'simple_api_key' => 'AIzaSyCfuKNQZtJAiESMPqSXw1ia5Z1QKjSdf1M'
+                        );
+
+
+$config['twitter_local'] = array (
+                          'consumer_key' => 'OkxmkjQ4oXiukr467VuDaN1B7',
+                          'consumer_recret' => 'GCFqUIHBvLXctm03XKFVshdqhYERvEtUfbq9NzHHsLSYMxYARR',
+                          'api_key' => '2477966881-1wO5QyQ89aTD1OReXdsP8fU4ZLSI3k3zB4G1UTK',
+                          'api_recret' => 'BnpFvO5TOEtp5djJ95A5u2Ytt1KAZ2h4bOW1zuUcJKX2N'
+                        );
+
+$config['twitter_demo'] = array (
+                          'consumer_key' => '7m5Jezo9BUxUDKWfO1hitDYnK',
+                          'consumer_recret' => 'xPLLfMgnPbNPVbHEwBuZ7JfdKjNpOzFCbbgnEKMLrZ6ooLEfyH',
+                          'api_key' => '770572538459983873-N9519D6BfEupftxen2UywBqW5r5xgtX',
+                          'api_recret' => 'On3mcH2sctiILPxeXxI7Gkq8ZlYFrXByZ2aWkW8utWeAY'
+                        );
+
+$config['twitter_real'] = array (
+                          'consumer_key' => '8o7bboogGGQvZsZOSgONqbICW',
+                          'consumer_recret' => '6RUh4pwWHJA1QVnYO7mlqZY5KGEHCWSEnF7YJe9WDcywctWiFA',
+                          'api_key' => '770572538459983873-jghJeDul4rrNHnTKGZpBGx3NjBk8vN1',
+                          'api_recret' => 'KBbTvNdbzKoojFOOn8qJcdPiz6ldzXXfk7a99PJunwNpH'
+                        );
+
+$config['linkedin_local'] = array (
+                          'linkedin_api_key' => '77xv565tp5a675',
+                          'linkedin_api_secret' => 'C6tpqT3VmTJm9jAd',
+                          'linkedin_redirect_url' => 'login/linkedin_auth',
+                          'linkedin_scope' => 'r_basicprofile r_emailaddress'
+                        );
+
+$config['linkedin_demo'] = array (
+                          'linkedin_api_key' => '81hdm6esj4qdjf',
+                          'linkedin_api_secret' => 'mEPRo9ZEwr0AYDGB',
+                          'linkedin_redirect_url' => 'login/linkedin_auth',
+                          'linkedin_scope' => 'r_basicprofile r_emailaddress'
+                        );
+
+$config['linkedin_real'] = array (
+                          'linkedin_api_key' => '',
+                          'linkedin_api_secret' => '',
+                          'linkedin_redirect_url' => 'login/linkedin_auth',
+                          'linkedin_scope' => 'r_basicprofile r_emailaddress'
+                        );

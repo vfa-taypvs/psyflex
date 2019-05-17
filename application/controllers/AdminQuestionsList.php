@@ -155,6 +155,8 @@ class AdminQuestionsList extends MY_Controller{
 
     $question_insert = array ();
     $answer_insert = array ();
+
+    $list_new_item_ids = array ();
     for ($i = 0; $i < $countQe; $i++) {
       $date = new DateTime();
       $currentTimestamp = $date->getTimestamp();
@@ -245,6 +247,9 @@ class AdminQuestionsList extends MY_Controller{
       );
 
       array_push ($answer_insert, $data_line);
+
+      // Add item_id for syncing with personal id
+      array_push ($list_new_item_ids, $currentTimestamp.'_type1_'.$i);
       // ------------ ENd Answer 1 -------------
 
       // ------------ Answer 2 -------------
@@ -289,6 +294,7 @@ class AdminQuestionsList extends MY_Controller{
       );
 
       array_push ($answer_insert, $data_line);
+      array_push ($list_new_item_ids, $currentTimestamp.'_type2_'.$i);
 
       // ------------ Answer 3 -------------
       //English
@@ -338,12 +344,14 @@ class AdminQuestionsList extends MY_Controller{
       );
 
       array_push ($answer_insert, $data_line);
+      array_push ($list_new_item_ids, $currentTimestamp.'_type3_'.$i);
       // ------------ ENd Answer 3 -------------
 
     }
 
     $this->Madminquestion->insertListQuestions($question_insert);
     $this->Madminanswer->insertListAnswers($answer_insert);
+    $this->Madminanswer->syncPersonalId($list_new_item_ids);
 
   }
 

@@ -86,8 +86,8 @@
             <?php for ($i = 0; $i <sizeof($answers) ; $i++) {
               echo '<tr>';
               echo '<td>'.($i+1).'</td>';
-              echo '<td>'.$answers[$i]['answer_title'].'</td>';
               echo '<td>'.$answers[$i]['question_title'].'</td>';
+              echo '<td>'.$answers[$i]['answer_title'].'</td>';
               echo '<td>'.$answers[$i]['point'].'</td>';
               // echo '<td>'.$result[$point_i].'</td>';
               echo '</tr>';

@@ -97,7 +97,7 @@
 
                     // Answer 1
                     echo '<div class="form-group">';
-                    echo '<label>Answer Positive</label>';
+                    echo '<label>Answer Positive: </label> <label class="question-axis-label" id="">+ X / + Y</label>';
                     echo '<div class="row">';
                     echo '<div class="col-xs-4">';
                     echo '<input type="text" class="form-control answer-txt-1-en" placeholder="English ..." name="answer_1_'.$i.'_en" value="'.$questions[$i]['answers'][0]['title'].'">';
@@ -129,7 +129,7 @@
 
                     // Answer 2
                     echo '<div class="form-group">';
-                    echo '<label>Answer Negative</label>';
+                    echo '<label>Answer Negative: </label> <label class="question-axis-label" id="">- X / - Y</label>';
                     echo '<div class="row">';
                     echo '<div class="col-xs-4">';
                     echo '<input type="text" class="form-control answer-txt-2-en" placeholder="English ..." name="answer_2_'.$i.'_en" value="'.$questions[$i]['answers'][3]['title'].'">';

@@ -172,7 +172,12 @@ Class Facebook
         // If we did not have a stored access token or if it has expired, try get a new access token
         if(!$access_token){
             try{
-                $access_token = $this->helper->getAccessToken();
+                $access_token = $this->helper->getAccessToken('https://psyflex.fr/login/facebook_auth');
+            }catch(FacebookResponseException $e) {
+              // When Graph returns an error
+              var_dump($this->helper->getError());
+              echo 'Graph returned an error: ' . $e->getMessage();
+              exit;
             }catch (FacebookSDKException $e){
                 $this->logError($e->getCode(), $e->getMessage());
                 return null;

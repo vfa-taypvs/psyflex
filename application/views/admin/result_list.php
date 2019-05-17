@@ -64,7 +64,16 @@
                   echo "<tr>";
                   echo "<td>".$result['item_id']."</td>";
                   echo "<td></td>";
-                  echo "<td>".$result['name']."</td>";
+                  echo "<td>".$result['name'];
+                  if ($result['character_id'] != 0) {
+                    echo "<select class='change-character' data-itemid = '".$result['item_id']."' data-currentcolor = '".$result['color']."'>";
+                    foreach ($list_character as $character) {
+                      $selected = $result['character_id'] == $character['item_id'] ? 'selected' : '';
+                      echo "<option value='".$character['item_id']."' ".$selected.">".$character['title']."</option>";
+                    }
+                    echo "</select>";
+                  }
+                  echo "</td>";
                   echo "<td>".$result['explanation']."</td>";
                   echo "<td style='background-color:".$result['color']."'></td>";
                   echo "<td>";
@@ -90,7 +99,32 @@
 <script>
 $("#p_type").change(function() {
   // Check input( $( this ).val() ) for validity here
-  window.location.href =  '<?= base_url()?>admin-results?type_id=' + $(this).val();
+  window.location.href =  '<?=base_url()?>admin-results?type_id=' + $(this).val();
 });
+
+$(".change-character").change(function() {
+  var item_id = $(this).data('itemid');
+  var old_color = $(this).data('currentcolor');
+  var character_id = $(this).val();
+  console.log("item id : " + item_id + " -  characterId : " + character_id);
+  $.ajax({
+    url : "<?php echo base_url(); ?>AdminResultList/ajaxChangeCharacter",
+    type : "POST",
+    dataType : "json",
+    data : {"item_id" : item_id, "character_id" :character_id, "old_color" : old_color},
+    success : function(data) {
+        // do something
+        console.log(data.result);
+        if (data.result ==  "success") {
+          window.location.replace("<?php echo base_url(); ?>admin-results?type_id=" + <?= $type_id?> );
+        }
+    },
+    error : function(data) {
+        // do something
+        // alert(data.result);
+    }
+  });
+});
+
 </script>
 <?php include 'common/footer.php' ?>

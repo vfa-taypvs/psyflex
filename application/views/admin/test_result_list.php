@@ -45,12 +45,13 @@
                 <?php
                 // print("<pre>".print_r($list_career,true)."</pre>");
                 foreach ($results as $result) {
+                  $participant = isset($result['first_name']) ? $result['first_name'] :  $result['user_email'];
                   $cipherID = encrypted($result['id']);
                   echo "<tr>";
                   echo "<td>".$result['id']."</td>";
                   echo "<td></td>";
                   echo "<td>".$result['title']."</td>";
-                  echo "<td>".$result['first_name']."</td>";
+                  echo "<td>".$participant."</td>";
                   echo "<td>".$result['updated_date']."</td>";
                   echo "<td>";
                   echo "<div class='btn-group'>";
@@ -66,6 +67,7 @@
             <!-- /.box-body -->
             <!-- Calculate Pages -->
             <?php
+              // echo "Page COunt : " . $pagesCount . " -  limit : " . $limit;
               $totalPage  = ceil($pagesCount/$limit);
               $linkPre = $currentPage == 1 ? '#' : 'admin-test-results?page='.($currentPage - 1);
               $linkNext = $currentPage == $totalPage ? '#' : 'admin-test-results?page='.($currentPage + 1);

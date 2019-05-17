@@ -114,18 +114,10 @@ class Login extends CI_Controller{
     //Include the twitter oauth php libraries
     include_once APPPATH."libraries/twitter-oauth-php-codexworld/twitteroauth.php";
 
-    //Twitter API Configuration
-    // Local
-    // $consumerKey = 'OkxmkjQ4oXiukr467VuDaN1B7';
-    // $consumerSecret = 'GCFqUIHBvLXctm03XKFVshdqhYERvEtUfbq9NzHHsLSYMxYARR';
+    $twitter = getTwitterKey();
 
-    // Demo
-    $consumerKey = '7m5Jezo9BUxUDKWfO1hitDYnK';
-    $consumerSecret = 'xPLLfMgnPbNPVbHEwBuZ7JfdKjNpOzFCbbgnEKMLrZ6ooLEfyH';
-
-    // Real
-    // $consumerKey = '';
-    // $consumerSecret = '';
+    $consumerKey = $twitter['consumer_key'];
+    $consumerSecret = $twitter['consumer_recret'];
 
     //Get existing token and token secret from session
     $sessToken = $this->session->userdata('token');
@@ -175,21 +167,19 @@ class Login extends CI_Controller{
     //Include the twitter oauth php libraries
     include_once APPPATH."libraries/twitter-oauth-php-codexworld/twitteroauth.php";
 
-    //Twitter API Configuration
-    // Local
-    // $consumerKey = 'OkxmkjQ4oXiukr467VuDaN1B7';
-    // $consumerSecret = 'GCFqUIHBvLXctm03XKFVshdqhYERvEtUfbq9NzHHsLSYMxYARR';
-    // $connection = new TwitterOAuth($consumerKey, $consumerSecret,'2477966881-1wO5QyQ89aTD1OReXdsP8fU4ZLSI3k3zB4G1UTK', 'BnpFvO5TOEtp5djJ95A5u2Ytt1KAZ2h4bOW1zuUcJKX2N');
+    $twitter = getTwitterKey();
 
-    // Demo
-    $consumerKey = '7m5Jezo9BUxUDKWfO1hitDYnK';
-    $consumerSecret = 'xPLLfMgnPbNPVbHEwBuZ7JfdKjNpOzFCbbgnEKMLrZ6ooLEfyH';
-    $connection = new TwitterOAuth($consumerKey, $consumerSecret,'770572538459983873-N9519D6BfEupftxen2UywBqW5r5xgtX', 'On3mcH2sctiILPxeXxI7Gkq8ZlYFrXByZ2aWkW8utWeAY');
+    $consumerKey = $twitter['consumer_key'];
+    $consumerSecret = $twitter['consumer_recret'];
+    $apiKey = $twitter['api_key'];
+    $apiSecret = $twitter['api_recret'];
+
+    $connection = new TwitterOAuth($consumerKey, $consumerSecret, $apiKey, $apiSecret);
 
     // Real
-    // $consumerKey = '';
-    // $consumerSecret = '';
-    // $connection = new TwitterOAuth($consumerKey, $consumerSecret,'', '');
+    // $consumerKey = '8o7bboogGGQvZsZOSgONqbICW';
+    // $consumerSecret = '6RUh4pwWHJA1QVnYO7mlqZY5KGEHCWSEnF7YJe9WDcywctWiFA';
+    // $connection = new TwitterOAuth($consumerKey, $consumerSecret,'770572538459983873-jghJeDul4rrNHnTKGZpBGx3NjBk8vN1', 'KBbTvNdbzKoojFOOn8qJcdPiz6ldzXXfk7a99PJunwNpH');
 
     $oauthCallback = base_url().'login/twitter_auth';
 
@@ -296,22 +286,12 @@ class Login extends CI_Controller{
     include_once APPPATH . "libraries/google-api-php-client-master/src/Google/Client.php";
     include_once APPPATH . "libraries/google-api-php-client-master/src/Google/Service/Oauth2.php";
 
-    // Store values in variables from project created in Google Developer Console
-    // Local
-    // $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
-    // $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
-    // $redirect_uri = 'http://localhost/psyflex/login/google_auth';
+    $google = getGoogleKey();
 
-    // Demo
-    $client_id = '942214225805-mt8jumqnc7f25ifprv9ms8197cmahn84.apps.googleusercontent.com';
-    $client_secret = 'oTkb8gwQjoAFLi0QNMd6iHpU';
-    $redirect_uri = 'http://demo.psyflex.fr/login/google_auth';
-
-    // Real
-    // $client_id = '';
-    // $client_secret = '';
-    $redirect_uri = 'http://localhost/psyflex/login/google_auth';
-    $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
+    $client_id = $google['client_id'];
+    $client_secret = $google['client_secret'];
+    $redirect_uri = $google['redirect_uri'];
+    $simple_api_key = $google['simple_api_key'];
 
     // Create Client Request to access Google API
     $client = new Google_Client();
@@ -357,7 +337,7 @@ class Login extends CI_Controller{
       //Insert or update user data
       $userID = $this->user->checkUser($userLoginData);
 
-      $this->loginAfterAuth($userInfo->id, "google");
+      $this->loginAfterAuth($userData->id, "google");
     }
     // Load view and send values stored in $data
   }
@@ -367,24 +347,12 @@ class Login extends CI_Controller{
     include_once APPPATH . "libraries/google-api-php-client-master/src/Google/Client.php";
     include_once APPPATH . "libraries/google-api-php-client-master/src/Google/Service/Oauth2.php";
 
-    // Store values in variables from project created in Google Developer Console
-    //Local
-    // $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
-    // $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
-    // $redirect_uri = 'http://localhost/psyflex/login/google_auth';
-    // $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
+    $google = getGoogleKey();
 
-    // Demo
-    $client_id = '942214225805-mt8jumqnc7f25ifprv9ms8197cmahn84.apps.googleusercontent.com';
-    $client_secret = 'oTkb8gwQjoAFLi0QNMd6iHpU';
-    $redirect_uri = 'http://demo.psyflex.fr/login/google_auth';
-    $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
-
-    // Local
-    // $client_id = '885009573118-l1rf1lnked9jpv9o6d9rqd8g81rfuquv.apps.googleusercontent.com';
-    // $client_secret = 'DoZkp8WsXh1DXxaD-9Pg61Kd';
-    // $redirect_uri = 'http://localhost/psyflex/login/google_auth';
-    // $simple_api_key = 'AIzaSyChrdsTRcYJ3GCzE9s7uFSxV7_RCL6Laeo';
+    $client_id = $google['client_id'];
+    $client_secret = $google['client_secret'];
+    $redirect_uri = $google['redirect_uri'];
+    $simple_api_key = $google['simple_api_key'];
 
     // Create Client Request to access Google API
     $client = new Google_Client();
@@ -407,6 +375,12 @@ class Login extends CI_Controller{
 
   private function checkLogin ($id, $password, $authType) {
     $result = $this->Muserlogin->getInfoUser($id, $authType);
+    // $result = $this->Muserlogin->getInfoUser($id, 'google');
+
+    // Debug
+    // $userInfo = $result[0];
+    // $this->session->set_userdata('user', $userInfo);
+    // redirect(base_url());
 
     if ($result == null) {
       $this->session->set_flashdata($this->_flash_mess, $this->lang->line('wrong_email_password'));

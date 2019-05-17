@@ -16,8 +16,10 @@ class AdminResultList extends MY_Controller{
     if (!isset($type_id))
       $type_id = 1;
     $personalType = $this->Madminpersonaltype->getListPersonalType();
-
-    $this->_data['list_results'] = $this->Madminresult->getListPersonalsWithLang('en', $type_id);
+    $list_results = $this->Madminresult->getListPersonalsWithLang('en', $type_id);
+    $list_character = $this->Madminresult->getListCharacterWithLang('en');
+    $this->_data['list_results'] = $list_results;
+    $this->_data['list_character'] = $list_character;
     $this->_data['types'] = $personalType;
     $this->_data['type_id'] = $type_id;
 
@@ -230,5 +232,39 @@ class AdminResultList extends MY_Controller{
 
   }
 
+  public function ajaxChangeCharacter () {
+    $this->load->model("Madminresult");
+    $this->load->model("Madminanswer");
+
+    $item_id = $this->input->post('item_id');
+    $character_id = $this->input->post('character_id');
+    $old_color = $this->input->post('old_color');
+
+    $color = $this->getColorWithCharacter($character_id);
+    $data_update = array(
+      "character_id" => $character_id,
+      "color" => $color
+    );
+    $this->Madminresult->updateCharacterAtPersonal($item_id, $data_update);
+
+    $this->Madminanswer->updateAnswerColorAtType($item_id, $color);
+
+    $data = array(
+            'result'      => "success"
+            );
+    echo json_encode($data);
+  }
+
+  private function getColorWithCharacter ($character_id) {
+    if ($character_id == 1)
+      return "#6548E0";
+    else if ($character_id == 2)
+      return "#FFC000";
+    else if ($character_id == 3)
+      return "#119F18";
+    else if ($character_id == 4)
+        return "#FF0000";
+
+  }
 }
 ?>

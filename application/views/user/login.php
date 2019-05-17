@@ -12,6 +12,28 @@
               echo '</div>';
             }
           ?>
+          <div class="row">
+            <div class="col-md-12">
+              <?php echo $this->lang->line('quick_access');?>
+              <br/>
+              <br/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <center>
+                <a href="<?php echo $authURL_FB;?>" class="fa fa-facebook"></a>
+                <a href="<?php echo $authURL_Twitter;?>" class="fa fa-twitter"></a>
+                <a href="<?php echo $authURL_google;?>" class="fa fa-google"></a>
+                <a href="<?php echo $authURL_linkedin;?>" class="fa fa-linkedin"></a>
+              </center>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <?php echo $this->lang->line('user_personal_acc');?>
+          <br/>
+          <br/>
           <form action="" method="post">
             <div class="form-group">
               <label for="exampleInputEmail1"><?php echo $this->lang->line('email');?></label>
@@ -27,15 +49,6 @@
         </div>
       </div>
     </section>
-
-    <div class="row">
-      <div class="col-md-8">
-        <a href="<?php echo $authURL_FB;?>" class="fa fa-facebook"></a>
-        <a href="<?php echo $authURL_Twitter;?>" class="fa fa-twitter"></a>
-        <a href="<?php echo $authURL_google;?>" class="fa fa-google"></a>
-        <a href="<?php echo $authURL_linkedin;?>" class="fa fa-linkedin"></a>
-      </div>
-    </div>
   </div>
 </body>
 </html>

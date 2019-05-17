@@ -4,6 +4,7 @@ $(function() {
 
 		var newRow = '<div class="box-body questions-group">';
 		newRow += '<div class="form-group">';
+		// newRow += 'Axis : <select class="question-axis" id="" data-count="' + questionCount + '"><option value="X">X Axis</option> <option value="Y">Y Axis</option></select><br>';
 		newRow += '<label class="question-count"></label>';
 		newRow += '<div class="row">';
 		newRow += '<div class="col-xs-4">';
@@ -20,7 +21,7 @@ $(function() {
 
 		// Answer 1
 		newRow += '<div class="form-group">';
-		newRow += '<label>Answer Negative</label>';
+		newRow += '<label>Answer Positive: </label> <label class="question-axis-label" id="">+ X / + Y</label>';
 		newRow += '<div class="row">';
 		newRow += '<div class="col-xs-4">';
 		newRow += '<input type="text" class="form-control answer-txt-1-en" placeholder="English ..." name="" value="">';
@@ -43,7 +44,7 @@ $(function() {
 
 		// Answer 2
 		newRow += '<div class="form-group">';
-		newRow += '<label>Answer Positive</label>';
+		newRow += '<label>Answer Negative: </label> <label class="question-axis-label" id="">- X / - Y</label>';;
 		newRow += '<div class="row">';
 		newRow += '<div class="col-xs-4">';
 		newRow += '<input type="text" class="form-control answer-txt-2-en" placeholder="English ..." name="" value="">';
@@ -178,6 +179,8 @@ $(function() {
 function sortQuestionOrder() {
 	var count = 0;
 	$( ".questions-group" ).each(function( index ) {
+		// change AXIS select
+		var changeAxis = $(this).find('.form-group').find('.question-axis');
   	// console.log( index + ": " + $( this ).text() );
 		var questionCountLbl = $(this).find('.form-group').find('.question-count');
 		var questionInput_en = $(this).find('.form-group').find('.question-txt-en');
@@ -203,6 +206,8 @@ function sortQuestionOrder() {
 		// var answerCColor = $(this).find('.select-answer-3');
 
 		var removeBtn = $(this).find('.input-group-btn').find('.remove-line');
+		$(changeAxis).attr('id', 'questions-axis_'+ index);
+		$(changeAxis).attr('data-count', index);
 		// var questionInput = $(this + '  ');
 		 $(questionInput_en).attr('name', 'questions_'+ index + '_en');
 		 $(questionInput_fr).attr('name', 'questions_'+ index + '_fr');
@@ -225,6 +230,7 @@ function sortQuestionOrder() {
 	});
 
 	$('#qeCount').val(count);
+	// setOnChangeAxisQuestion ();
 }
 
 function sortDescriptionName() {
@@ -256,4 +262,48 @@ function sortTag() {
 		 count++;
 	});
 	$('#tagCount').val(count);
+}
+
+function setOnChangeAxisQuestion () {
+
+	// console.log( index + ": " + $( this ).text() );
+	$(".question-axis").each (function () {
+		$(this).off('change');
+	})
+	$(".question-axis").change(function() {
+		var this_index = $(this).data('count');
+	  var this_val = $(this).val();
+		// console.log("Index : " + this_index);
+		var select_anwser_1 =  $('select[name=answer_color_1_'+this_index+']');
+		// console.log($(select_anwser_1).val());
+		$('select[name=answer_color_1_'+this_index+'] option').each(function(index,value) {
+			var disable_condition = "";
+			if (this_val == "X") {
+				disable_condition = index > 2;
+			} else {
+				disable_condition = index <= 2;
+			}
+			if(disable_condition) {
+					$(this).attr('disabled', true);
+			} else {
+				 $(this).attr('disabled', false);
+			}
+		});
+		$('select[name=answer_color_2_'+this_index+'] option').each(function(index,value) {
+			var disable_condition = "";
+			if (this_val == "X") {
+				disable_condition = index > 2;
+			} else {
+				disable_condition = index <= 2;
+			}
+			if(disable_condition) {
+					$(this).attr('disabled', true);
+			} else {
+				 $(this).attr('disabled', false);
+			}
+		});
+	});
+	// $(this).attr('name', 'tag_item_'+ index);
+	// count++;
+
 }

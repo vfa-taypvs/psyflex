@@ -1,6 +1,7 @@
 body {
   font-size: 16px;
-  font-family: 'Georgia', sans-serif;
+  /* font-family: 'Georgia', sans-serif; */
+  font-family: Arial;
 }
 
 @font-face {
@@ -222,10 +223,10 @@ ul {
 
 #l_result th, #l_result td {border: solid 1px #000; padding: 10px; text-align: center;}
 #l_result th.gray {background: #bfbfbf}
-#l_result th.color01 {background-color: #5a82b6; color: #fff}
-#l_result th.color02 {background-color: #3a7c28; color: #fff}
-#l_result th.color03 {background-color: #d7d20f; color: #fff}
-#l_result th.color04 {background-color: #ba211b; color: #fff}
+#l_result th.color01 {background-color: #6548E0; color: #fff}
+#l_result th.color02 {background-color: #FFC000; color: #fff}
+#l_result th.color03 {background-color: #119F18; color: #fff}
+#l_result th.color04 {background-color: #FF0000; color: #fff}
 
 
 .btn01 {
@@ -392,7 +393,10 @@ ul {
   background: #ff6600;
   color: white;
 }
-
-body .menu-header ul li a{
-  font-family: Arial !important;
+#compare_result {
+  position: fixed;
+  right: 0px;
 }
+/* body .menu-header ul li a{
+  font-family: Arial !important;
+} */

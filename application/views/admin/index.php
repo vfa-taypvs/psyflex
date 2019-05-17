@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kantana Admin Page</title>
+<title>Psyflex Admin Page</title>
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -95,7 +95,7 @@ span.psw {
   <h2>Psyflex Admin</h2>
     <form action="" method="post">
       <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-      
+
       <div class="container">
 
         <?php

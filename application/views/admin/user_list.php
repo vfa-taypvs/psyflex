@@ -40,11 +40,12 @@
                 <?php
                 // print("<pre>".print_r($list_career,true)."</pre>");
                 foreach ($list_users as $users) {
+                  $userName = isset($users['first_name']) ? $users['first_name'] : $users['email'];
                   $cipherID = encrypted($users['id']);
                   echo "<tr>";
                   echo "<td>".$users['id']."</td>";
                   echo "<td></td>";
-                  echo "<td>".$users['last_name']."</td>";
+                  echo "<td>".$userName."</td>";
                   echo "<td>".$users['oauth_provider']."</td>";
                   echo "<td>";
                   echo "<div class='btn-group'>";
