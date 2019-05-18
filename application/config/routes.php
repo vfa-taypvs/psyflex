@@ -63,6 +63,7 @@ $route['admin-tests'] = 'adminTestList';
 $route['admin-results'] = 'adminResultList';
 $route['admin-test-results'] = 'AdminTestResultList';
 $route['admin-test-results/detail'] = 'AdminTestResultList/detail';
+$route['admin-test-results/display-graph'] = 'AdminTestResultList/graphCompare';
 $route['admin-users'] = 'adminUserList';
 $route['admin-users/detail'] = 'adminUserList/detail';
 $route['admin-results/change'] = 'adminResultList/change';

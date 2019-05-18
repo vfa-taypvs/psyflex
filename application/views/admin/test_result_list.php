@@ -28,7 +28,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">List </h3>
-
+              <button style="margin-left: 100px" id="compare_result">Display</button>
             </div>
             <!-- /.box-header -->
 
@@ -40,6 +40,7 @@
                   <th>Test name</th>
                   <th>Participant</th>
                   <th>Date</th>
+                  <th></th>
                   <th></th>
                 </tr>
                 <?php
@@ -58,6 +59,7 @@
                   echo '<a href="'.base_url().'admin-test-results/detail?id='.$cipherID.'&&personal_type_id='.$result['type'].'"><button type="button" class="btn btn-info">View Result</button></a>';
                   echo "</div>";
                   echo "</td>";
+                  echo "<td><input type='checkbox' data-resultid=".$result['id']." data-testid=".$result['test_id']." /></td>";
                   echo "</tr>";
                 }
                 ?>
@@ -73,12 +75,25 @@
               $linkNext = $currentPage == $totalPage ? '#' : 'admin-test-results?page='.($currentPage + 1);
             ?>
             <div class="box-footer clearfix">
+              <div class="col-md-3">
+                Item per page: <br/>
+                <select class="form-control" id="per_page">
+                  <?php
+                  for ($i = 1 ; $i <= 5; $i++) {
+                    $selected = "";
+                    if ($limit == $i*10)
+                      $selected = 'selected';
+                    echo '<option value="'.($i*10).'" '.$selected.'>'.($i*10).'</option>';
+                  }
+                  ?>
+                </select>
+              </div>
               <ul class="pagination pagination-sm no-margin pull-right">
                 <li><a href="<?php echo $linkPre;?>">&laquo;</a></li>
                 <?php
                 for ($i = 1 ; $i <= $totalPage; $i++) {
                   $classActive = $i == $currentPage ? 'active' : '';
-                  $urlPage = $i != $currentPage ? 'admin-test-results?page='.$i : '#' ;
+                  $urlPage = $i != $currentPage ? 'admin-test-results?per_page='.$limit.'&page='.$i : '#' ;
                   echo '<li><a href="'.$urlPage.'" class="'.$classActive.'">'.$i.'</a></li>';
                 }
                 ?>
@@ -93,5 +108,63 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+<script>
+$( "#per_page" ).change(function() {
+  // Check input( $( this ).val() ) for validity here
+  window.location.replace('<?php echo base_url(); ?>admin-test-results?per_page='+$(this).val()+'&page=<?=$currentPage?>');
+});
+</script>
 
+<!-- Check Box Display Script -->
+<script>
+var count_check = 0;
+var result_id = [];
+var test_id = '';
+$("input[type='checkbox']").change(function() {
+    // this will contain a reference to the checkbox
+    var thisTestiD = $(this).data('testid');
+    if (this.checked) {
+        test_id = thisTestiD;
+        count_check++;
+        result_id.push($(this).data('resultid'));
+        $("input[type='checkbox']").each(function( index ) {
+          if (count_check >= 2) {
+            // Check check 2 boxes, disable all other box
+            if (!this.checked)
+              $( this ).attr("disabled", true);
+          }
+          else {
+            // If check first box, disable all other tests type
+            // Just available the same type
+            if ($(this).data('testid') == thisTestiD) {
+
+            } else {
+              $( this ).attr("disabled", true);
+            }
+          }
+
+        });
+    } else {
+      count_check--;
+      result_id.pop();
+      $("input[type='checkbox']").each(function( index ) {
+        if (count_check == 1) {
+          if ($(this).data('testid') == thisTestiD) {
+            $( this ).attr("disabled", false);
+          } else {
+            $( this ).attr("disabled", true);
+          }
+        } else {
+          $( this ).removeAttr("disabled");
+        }
+      });
+    }
+});
+
+$( "#compare_result" ).click(function() {
+  if (result_id.length == 2)
+    window.location.replace("<?php echo base_url(); ?>admin-test-results/display-graph?id_1=" + result_id[0] + "&id_2=" + result_id[1] + "&test=" + test_id);
+});
+
+</script>
 <?php include 'common/footer.php' ?>

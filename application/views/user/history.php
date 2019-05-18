@@ -3,7 +3,7 @@
     <div class="container">
       <section class="content01 chapter">
         <h2>Your record</h2>
-        <button id="compare_result">Compare</button><br><br>
+        <button id="compare_result">Display</button><br><br>
         <table>
           <tr>
             <th></th>
@@ -66,7 +66,15 @@ $("input[type='checkbox']").change(function() {
       count_check--;
       result_id.pop();
       $("input[type='checkbox']").each(function( index ) {
-        $( this ).removeAttr("disabled");
+        if (count_check == 1) {
+          if ($(this).data('testid') == thisTestiD) {
+            $( this ).attr("disabled", false);
+          } else {
+            $( this ).attr("disabled", true);
+          }
+        } else {
+          $( this ).removeAttr("disabled");
+        }
       });
     }
 });

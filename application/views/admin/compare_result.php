@@ -1,83 +1,105 @@
 <?php include 'common/header.php' ?>
-  <div class="main-content">
-    <div class="container">
-      <section class="content01 chapter">
-
-        <h2>Your record</h2>
-        <?php
-          // print("<pre>".print_r($results,true)."</pre>");
-          $pointA_x = $results_1[0]['point'];
-          $pointA_y = $results_1[1]['point'];
-          $pointB_x = $results_1[3]['point'];
-          $pointB_y = $results_1[4]['point'];
-          $colorPointA = "";
-          $colorPointB = "";
-
-          $solution = $this->lang->line('you_are')." ";
-          $solution2 = $this->lang->line('you_are')." ";
-          // Set color point A
-          if (($pointA_x + $pointA_y) > 0) {
-            $colorPointA = $results_1[0]['color'];
-          } else if (($pointA_x + $pointA_y) < 0) {
-            $colorPointA = $results_1[1]['color'];
-          } else  {
-            $colorPointA = $results_1[2]['color'];
-          }
-
-          // Set color point B
-          if (($pointB_x + $pointB_y) > 0) {
-            $colorPointB = $results_1[3]['color'];
-          } else if (($pointB_x + $pointB_y) < 0) {
-            $colorPointB = $results_1[4]['color'];
-          } else  {
-            $colorPointB = $results_1[5]['color'];
-          }
-
-          $final_point_X = $pointA_x + $pointA_y;
-          $final_point_Y = $pointB_x + $pointB_y;
-          $final_color = ($pointA_x + $pointA_y) >= ($pointB_x + $pointB_y) ? $colorPointA : $colorPointB;
+<?php include 'common/sidebar.php' ?>
+  <!-- Left side column. contains the logo and sidebar -->
 
 
-          // ========  Point 2
-          // print("<pre>".print_r($results,true)."</pre>");
-          $pointA_x_2 = $results_2[0]['point'];
-          $pointA_y_2 = $results_2[1]['point'];
-          $pointB_x_2 = $results_2[3]['point'];
-          $pointB_y_2 = $results_2[4]['point'];
-          $colorPointA_2 = "";
-          $colorPointB_2 = "";
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Display results
+      </h1>
+    </section>
 
-          // Set color point A
-          if (($pointA_x_2 + $pointA_y_2) > 0) {
-            $colorPointA_2 = $results_2[0]['color'];
-          } else if (($pointA_x_2 + $pointA_y_2) < 0) {
-            $colorPointA_2 = $results_2[1]['color'];
-          } else  {
-            $colorPointA_2 = $results_2[2]['color'];
-          }
+    <?php
+      if(isset($mess) && $mess != ''){
+        echo '<div class="callout callout-info">';
+        echo $mess;
+        echo "</div>";
+      }
+    ?>
 
-          // Set color point B
-          if (($pointB_x_2 + $pointB_y_2) > 0) {
-            $colorPointB_2 = $results_2[3]['color'];
-          } else if (($pointB_x_2 + $pointB_y_2) < 0) {
-            $colorPointB_2 = $results_2[4]['color'];
-          } else  {
-            $colorPointB_2 = $results_2[5]['color'];
-          }
+    <!-- Main content -->
+    <section class="content">
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <?php
+            // print("<pre>".print_r($results,true)."</pre>");
+            $pointA_x = $results_1[0]['point'];
+            $pointA_y = $results_1[1]['point'];
+            $pointB_x = $results_1[3]['point'];
+            $pointB_y = $results_1[4]['point'];
+            $colorPointA = "";
+            $colorPointB = "";
 
-          $final_point_X_2 = $pointA_x_2 + $pointA_y_2;
-          $final_point_Y_2 = $pointB_x_2 + $pointB_y_2;
-          $final_color_2 = ($pointA_x_2 + $pointA_y_2) >= ($pointB_x_2 + $pointB_y_2) ? $colorPointA_2 : $colorPointB_2;
-        ?>
+            // Set color point A
+            if (($pointA_x + $pointA_y) > 0) {
+              $colorPointA = $results_1[0]['color'];
+            } else if (($pointA_x + $pointA_y) < 0) {
+              $colorPointA = $results_1[1]['color'];
+            } else  {
+              $colorPointA = $results_1[2]['color'];
+            }
 
-        <div>
+            // Set color point B
+            if (($pointB_x + $pointB_y) > 0) {
+              $colorPointB = $results_1[3]['color'];
+            } else if (($pointB_x + $pointB_y) < 0) {
+              $colorPointB = $results_1[4]['color'];
+            } else  {
+              $colorPointB = $results_1[5]['color'];
+            }
+
+            $final_point_X = $pointA_x + $pointA_y;
+            $final_point_Y = $pointB_x + $pointB_y;
+            $final_color = ($pointA_x + $pointA_y) >= ($pointB_x + $pointB_y) ? $colorPointA : $colorPointB;
+
+
+            // ========  Point 2
+            // print("<pre>".print_r($results,true)."</pre>");
+            $pointA_x_2 = $results_2[0]['point'];
+            $pointA_y_2 = $results_2[1]['point'];
+            $pointB_x_2 = $results_2[3]['point'];
+            $pointB_y_2 = $results_2[4]['point'];
+            $colorPointA_2 = "";
+            $colorPointB_2 = "";
+
+            // Set color point A
+            if (($pointA_x_2 + $pointA_y_2) > 0) {
+              $colorPointA_2 = $results_2[0]['color'];
+            } else if (($pointA_x_2 + $pointA_y_2) < 0) {
+              $colorPointA_2 = $results_2[1]['color'];
+            } else  {
+              $colorPointA_2 = $results_2[2]['color'];
+            }
+
+            // Set color point B
+            if (($pointB_x_2 + $pointB_y_2) > 0) {
+              $colorPointB_2 = $results_2[3]['color'];
+            } else if (($pointB_x_2 + $pointB_y_2) < 0) {
+              $colorPointB_2 = $results_2[4]['color'];
+            } else  {
+              $colorPointB_2 = $results_2[5]['color'];
+            }
+
+            $final_point_X_2 = $pointA_x_2 + $pointA_y_2;
+            $final_point_Y_2 = $pointB_x_2 + $pointB_y_2;
+            $final_color_2 = ($pointA_x_2 + $pointA_y_2) >= ($pointB_x_2 + $pointB_y_2) ? $colorPointA_2 : $colorPointB_2;
+          ?>
+
+          <div>
           <!-- <div id="animatedshapes_div" style="width: 900px; height: 500px;"></div> -->
-          <canvas id="myCanvas" width="1080" height="678"></canvas>
-        </div>
-      </section>
-    </div>
-  </div>
 
+          <canvas id="myCanvas" width="1080" height="678"></canvas>
+          <!-- /.box -->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
   <script>
     // Point 1
     var result_X = <?php echo $final_point_X;?>;
@@ -188,6 +210,12 @@
       context.fillStyle = '<?php echo $results_1[0]['color'];?>';
       context.fillText('<?php echo $results_1['updated_date'];?>', centerX, centerY + 25);
 
+      // Draw User 1
+      context.font = 'normal 10pt arial';
+      context.textAlign = 'center';
+      context.fillStyle = '<?php echo $results_1[0]['color'];?>';
+      context.fillText('<?php echo $results_1['user'];?>', centerX, centerY + 45);
+
       // Draw point 2
       context.beginPath();
       context.arc(centerX_2, centerY_2, radius, 0, 2 * Math.PI, false);
@@ -200,6 +228,12 @@
       context.textAlign = 'center';
       context.fillStyle = '<?php echo $results_2[0]['color'];?>';
       context.fillText('<?php echo $results_2['updated_date'];?>', centerX_2, centerY_2 + 25);
+
+      // Draw User 2
+      context.font = 'normal 10pt arial';
+      context.textAlign = 'center';
+      context.fillStyle = '<?php echo $results_1[0]['color'];?>';
+      context.fillText('<?php echo $results_2['user'];?>', centerX_2, centerY_2 + 45);
 
       // Draw Text
       // Top
@@ -299,6 +333,5 @@
 
     }
 
-</script>
-</body>
-</html>
+  </script>
+<?php include 'common/footer.php' ?>

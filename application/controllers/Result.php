@@ -83,6 +83,7 @@ class Result extends CI_Controller{
     for ($i = 0; $i < sizeof($resultDtb); $i++) {
       $resultArray [$i]['point'] = $points['point_'.($i + 1)];
     }
+    $resultArray['updated_date'] = $points['updated_date'];
     return $resultArray;
   }
 

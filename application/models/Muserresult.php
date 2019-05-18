@@ -22,7 +22,7 @@ class Muserresult extends CI_Model{
 
     public function getPointFromResult($result_id) {
       $this->db->where('id',$result_id);
-      $this->db->select('point_1, point_2, point_3, point_4, point_5, point_6');
+      $this->db->select('user_id, point_1, point_2, point_3, point_4, point_5, point_6, updated_date');
       return $this->db->get($this->_table_result)->result_array();
     }
 
