@@ -80,10 +80,14 @@ class AdminTestResultList extends MY_Controller{
 
     // Result 2
     $result_id_2 =  $this->input->get('id_2');
-    $points = $this->Muserresult->getPointFromResult($result_id_2);
-    $resultInit = $this->initResultListFromPoints($points[0], $results);
-    // print("<pre>".print_r($resultInit,true)."</pre>");
-    $this->_data['results_2'] = $resultInit;
+    if ($result_id_2 == null || $result_id_2 == "") {
+
+    } else {
+      $points = $this->Muserresult->getPointFromResult($result_id_2);
+      $resultInit = $this->initResultListFromPoints($points[0], $results);
+      // print("<pre>".print_r($resultInit,true)."</pre>");
+      $this->_data['results_2'] = $resultInit;
+    }
 
     $this->load->view('/admin/compare_result.php', $this->_data);
   }

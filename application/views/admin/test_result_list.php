@@ -162,9 +162,13 @@ $("input[type='checkbox']").change(function() {
 });
 
 $( "#compare_result" ).click(function() {
-  if (result_id.length == 2)
-    window.location.replace("<?php echo base_url(); ?>admin-test-results/display-graph?id_1=" + result_id[0] + "&id_2=" + result_id[1] + "&test=" + test_id);
-});
+  if (result_id.length > 0) {
+    var param_1 = result_id[0] != null ? "id_1=" + result_id[0] : "";
+    var param_2 = result_id[1] != null ? "&id_2=" + result_id[1] : "";
+    var param_3 = test_id != null ? "&test=" + test_id : "";
+    window.location.replace("<?php echo base_url(); ?>admin-test-results/display-graph?" + param_1 + param_2 + param_3);
+  }
 
+});
 </script>
 <?php include 'common/footer.php' ?>
