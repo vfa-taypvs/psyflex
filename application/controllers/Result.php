@@ -153,24 +153,6 @@ class Result extends CI_Controller{
     $this->_data['max_density'] = $maxDensity;
     $this->_data['results'] = $resultArray;
 
-    // // Result 1
-    // $result_id_1 =  $this->input->get('id_1');
-    // $points = $this->Muserresult->getPointFromResult($result_id_1);
-    // $resultInit = $this->initResultListFromPoints($points[0], $results);
-    // // print("<pre>".print_r($resultInit,true)."</pre>");
-    // $this->_data['results_1'] = $resultInit;
-    //
-    // // Result 2
-    // $result_id_2 =  $this->input->get('id_2');
-    // if ($result_id_2 == null || $result_id_2 == "") {
-    //
-    // } else {
-    //   $points = $this->Muserresult->getPointFromResult($result_id_2);
-    //   $resultInit = $this->initResultListFromPoints($points[0], $results);
-    //   // print("<pre>".print_r($resultInit,true)."</pre>");
-    //   $this->_data['results_2'] = $resultInit;
-    // }
-
     $this->load->view('/user/result_compare.php', $this->_data);
   }
 

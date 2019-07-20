@@ -71,27 +71,47 @@ class AdminTestResultList extends MY_Controller{
     $type_id = $tests = $this->Musertest->getTestFromId('en', $test_id);
     $results = $this->Muserresult->getResultByLang('en', $type_id[0]['type']);
 
-    // Result 1
-    $result_id_1 =  $this->input->get('id_1');
-    $points = $this->Muserresult->getPointFromResult($result_id_1);;
-    $resultInit = $this->initResultListFromPoints($points[0], $results);
-    // print("<pre>".print_r($resultInit,true)."</pre>");
-    $this->_data['results_1'] = $resultInit;
+    $resultArray = array();
+    $maxDensity = 0;
+    foreach($_GET as $key => $value){
+      if ($key!="test") {
+        $result_id = $value;
+        $points = $this->Muserresult->getPointFromResult($result_id);
+        $resultInit = $this->initResultListFromPoints($points[0], $results);
 
-    // Result 2
-    $result_id_2 =  $this->input->get('id_2');
-    if ($result_id_2 == null || $result_id_2 == "") {
+        $pointA_x = $resultInit[0]['point'];
+        $pointA_y = $resultInit[1]['point'];
+        $pointB_x = $resultInit[3]['point'];
+        $pointB_y = $resultInit[4]['point'];
 
-    } else {
-      $points = $this->Muserresult->getPointFromResult($result_id_2);
-      $resultInit = $this->initResultListFromPoints($points[0], $results);
-      // print("<pre>".print_r($resultInit,true)."</pre>");
-      $this->_data['results_2'] = $resultInit;
+        $final_point_X = $pointA_x + $pointA_y;
+        $final_point_Y = $pointB_x + $pointB_y;
+
+        $biggerV = abs($final_point_X) > abs($final_point_Y) ? abs($final_point_X) : abs($final_point_Y);
+        $currentDensity = $this->getDensity($biggerV, 15);
+
+        if ($maxDensity < $currentDensity)
+          $maxDensity = $currentDensity;
+
+        array_push($resultArray,$resultInit);
+
+      }
     }
+
+    $this->_data['max_density'] = $maxDensity;
+    $this->_data['results'] = $resultArray;
 
     $this->load->view('/admin/compare_result.php', $this->_data);
   }
 
+  private function getDensity ($value, $density) {
+    if ($value <= $density)
+      return $density;
+    else {
+      return $this->getDensity($value, $density + 15);
+    }
+  }
+  
   private function initResultListFromPoints ($points, $resultDtb) {
     $resultArray = $resultDtb;
     $user = $this->Madminuser->getUserAtId($points['user_id']);

@@ -120,6 +120,7 @@ $( "#per_page" ).change(function() {
 var count_check = 0;
 var result_id = [];
 var test_id = '';
+var limit = 10;
 $("input[type='checkbox']").change(function() {
     // this will contain a reference to the checkbox
     var thisTestiD = $(this).data('testid');
@@ -128,7 +129,7 @@ $("input[type='checkbox']").change(function() {
         count_check++;
         result_id.push($(this).data('resultid'));
         $("input[type='checkbox']").each(function( index ) {
-          if (count_check >= 2) {
+          if (count_check >= limit) {
             // Check check 2 boxes, disable all other box
             if (!this.checked)
               $( this ).attr("disabled", true);
@@ -163,12 +164,19 @@ $("input[type='checkbox']").change(function() {
 
 $( "#compare_result" ).click(function() {
   if (result_id.length > 0) {
-    var param_1 = result_id[0] != null ? "id_1=" + result_id[0] : "";
-    var param_2 = result_id[1] != null ? "&id_2=" + result_id[1] : "";
-    var param_3 = test_id != null ? "&test=" + test_id : "";
-    window.location.replace("<?php echo base_url(); ?>admin-test-results/display-graph?" + param_1 + param_2 + param_3);
+    var param = "?";
+    var andOp = "";
+    var param_test_id =test_id != null ? "&test=" + test_id : "";
+    for (var i = 0 ; i < result_id.length; i ++) {
+      param += andOp;
+      param = param + "id_" + i + "=" + result_id[i];
+      andOp = "&";
+    }
+    param = param + param_test_id;
+    window.location.replace("<?php echo base_url(); ?>admin-test-results/display-graph?" + param);
   }
 
 });
+
 </script>
 <?php include 'common/footer.php' ?>
