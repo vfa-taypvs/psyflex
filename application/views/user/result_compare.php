@@ -1,248 +1,205 @@
-<?php include 'common/header.php' ?>
+  <?php include 'common/header.php' ?>
   <div class="main-content">
     <div class="container">
       <section class="content01 chapter">
 
         <h2>Your record</h2>
-        <?php
-          // print("<pre>".print_r($results,true)."</pre>");
-          $pointA_x = $results_1[0]['point'];
-          $pointA_y = $results_1[1]['point'];
-          $pointB_x = $results_1[3]['point'];
-          $pointB_y = $results_1[4]['point'];
-          $colorPointA = "";
-          $colorPointB = "";
-
-          $solution = $this->lang->line('you_are')." ";
-          $solution2 = $this->lang->line('you_are')." ";
-          // Set color point A
-          if (($pointA_x + $pointA_y) > 0) {
-            $colorPointA = $results_1[0]['color'];
-          } else if (($pointA_x + $pointA_y) < 0) {
-            $colorPointA = $results_1[1]['color'];
-          } else  {
-            $colorPointA = $results_1[2]['color'];
-          }
-
-          // Set color point B
-          if (($pointB_x + $pointB_y) > 0) {
-            $colorPointB = $results_1[3]['color'];
-          } else if (($pointB_x + $pointB_y) < 0) {
-            $colorPointB = $results_1[4]['color'];
-          } else  {
-            $colorPointB = $results_1[5]['color'];
-          }
-
-          $final_point_X = $pointA_x + $pointA_y;
-          $final_point_Y = $pointB_x + $pointB_y;
-          $final_color = ($pointA_x + $pointA_y) >= ($pointB_x + $pointB_y) ? $colorPointA : $colorPointB;
-
-
-          // ========  Point 2
-          // print("<pre>".print_r($results,true)."</pre>");
-          if (isset($results_2) && $results_2!="") {
-            $pointA_x_2 = $results_2[0]['point'];
-            $pointA_y_2 = $results_2[1]['point'];
-            $pointB_x_2 = $results_2[3]['point'];
-            $pointB_y_2 = $results_2[4]['point'];
-            $colorPointA_2 = "";
-            $colorPointB_2 = "";
-
-            // Set color point A
-            if (($pointA_x_2 + $pointA_y_2) > 0) {
-              $colorPointA_2 = $results_2[0]['color'];
-            } else if (($pointA_x_2 + $pointA_y_2) < 0) {
-              $colorPointA_2 = $results_2[1]['color'];
-            } else  {
-              $colorPointA_2 = $results_2[2]['color'];
-            }
-
-            // Set color point B
-            if (($pointB_x_2 + $pointB_y_2) > 0) {
-              $colorPointB_2 = $results_2[3]['color'];
-            } else if (($pointB_x_2 + $pointB_y_2) < 0) {
-              $colorPointB_2 = $results_2[4]['color'];
-            } else  {
-              $colorPointB_2 = $results_2[5]['color'];
-            }
-
-            $final_point_X_2 = $pointA_x_2 + $pointA_y_2;
-            $final_point_Y_2 = $pointB_x_2 + $pointB_y_2;
-            $final_color_2 = ($pointA_x_2 + $pointA_y_2) >= ($pointB_x_2 + $pointB_y_2) ? $colorPointA_2 : $colorPointB_2;
-          }
-
-        ?>
-
         <div>
           <!-- <div id="animatedshapes_div" style="width: 900px; height: 500px;"></div> -->
           <canvas id="myCanvas" width="1080" height="678"></canvas>
         </div>
+        <script>
+        var margin_width = 180;
+        var margin_height = 100;
+        var space_width = 30;
+        var space_height = 30;
+
+        var canvas_width = $('#myCanvas').width();
+        var canvas_height = $('#myCanvas').height();
+
+        var point_root_X = canvas_width/2;
+        var point_root_Y = canvas_height/2;
+
+        var graph_width = canvas_width/2 - margin_width - space_width;
+        var graph_height = canvas_height/2 - margin_height - space_height;
+
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        // Axis value
+        // horizontal
+        h_x_from_line_1 = point_root_X - graph_width - space_width;
+        h_y_from_line_1 = point_root_Y;
+        h_x_to_line_1 = h_x_from_line_1 + graph_width;
+        h_y_to_line_1 = point_root_Y;
+
+        h_x_from_line_2 = point_root_X + space_width;
+        h_y_from_line_2 = point_root_Y;
+        h_x_to_line_2 = h_x_from_line_2 + graph_width;
+        h_y_to_line_2 = point_root_Y;
+
+        // vertical
+        v_x_from_line_1 = point_root_X;
+        v_y_from_line_1 = point_root_Y - space_height - graph_height;
+        v_x_to_line_1 = point_root_X;
+        v_y_to_line_1 = v_y_from_line_1 + graph_height;
+
+        v_x_from_line_2 = point_root_X
+        v_y_from_line_2 = point_root_Y + space_height;
+        v_x_to_line_2 = point_root_X
+        v_y_to_line_2 = v_y_from_line_2 + graph_height;
+
+        var h_text_margin = 20;
+        var v_text_margin = 10;
+        var top_text_y = v_y_from_line_1 - h_text_margin;
+        var top_text_x = point_root_X;
+        var bot_text_y = v_y_to_line_2 + h_text_margin + 20;
+        var bot_text_x = point_root_X;
+
+        var left_text_y = point_root_Y;
+        var left_text_x = 0 + 90;
+        var right_text_y = point_root_Y;
+        var right_text_x = h_x_to_line_2 + 60 + v_text_margin;
+
+        var coordidates_X = [];
+        var coordidates_Y = [];
+        var finalColors = [];
+        var updateDates = [];
+        var final_point_X = [];
+        var final_point_Y = [];
+        var maxDensity = <?=$max_density; ?>;
+
+        function renderPoint (centerX, centerY, finalcolor, update_date) {
+          var radius = 10;
+          // Draw point 1
+          context.beginPath();
+          context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+          context.fillStyle = finalcolor;
+          context.fill();
+          context.stroke();
+
+          context.font = 'normal 10pt arial';
+          context.textAlign = 'center';
+          context.fillStyle = finalcolor;
+          context.fillText(update_date, centerX, centerY + 25);
+
+        }
+
+        </script>
+        <?php
+          for ($i = 0; $i < sizeof($results); $i++) {
+            // print("<pre>".print_r($results,true)."</pre>");
+            $pointA_x = $results[$i][0]['point'];
+            $pointA_y = $results[$i][1]['point'];
+            $pointB_x = $results[$i][3]['point'];
+            $pointB_y = $results[$i][4]['point'];
+            $colorPointA = "";
+            $colorPointB = "";
+
+            // Set color point A
+            if (($pointA_x + $pointA_y) > 0) {
+              $colorPointA = $results[$i][0]['color'];
+            } else if (($pointA_x + $pointA_y) < 0) {
+              $colorPointA = $results[$i][1]['color'];
+            } else  {
+              $colorPointA = $results[$i][2]['color'];
+            }
+
+            // Set color point B
+            if (($pointB_x + $pointB_y) > 0) {
+              $colorPointB = $results[$i][3]['color'];
+            } else if (($pointB_x + $pointB_y) < 0) {
+              $colorPointB = $results[$i][4]['color'];
+            } else  {
+              $colorPointB = $results[$i][5]['color'];
+            }
+
+            $final_point_X = $pointA_x + $pointA_y;
+            $final_point_Y = $pointB_x + $pointB_y;
+            $final_color = $final_point_X >= $final_point_Y ? $colorPointA : $colorPointB;
+
+          ?>
+
+          <script>
+            // Point 1
+            var result_X = <?php echo $final_point_X;?>;
+            var result_Y = <?php echo $final_point_Y;?>;
+            var update_date = '<?php echo $results[$i]['updated_date'];?>';
+
+            var radius = 10;
+
+            // Point 1 value
+            var point_X_to = ((graph_width + space_width) / maxDensity) * Math.abs(result_X);
+            var point_Y_to = ((graph_height + space_height) / maxDensity) * Math.abs(result_Y);
+            var centerX = result_X >= 0 ? (point_root_X + point_X_to) : (point_root_X - point_X_to);
+            var centerY = result_Y >= 0 ? (point_root_Y - point_Y_to) : (point_root_Y + point_Y_to);
+
+            coordidates_X.push (centerX);
+            coordidates_Y.push (centerY);
+            finalColors.push ('<?=$final_color?>');
+            updateDates.push (update_date);
+            final_point_X.push (result_X);
+            final_point_Y.push (result_Y);
+            // Text Value
+
+
+
+            renderPoint(centerX, centerY, '<?=$final_color?>', update_date);
+          </script>
+
+        <?php } ?>
+
+        <script>
+
+        function renderGraph () {
+          // Begin Draw
+          context.beginPath();
+          // Draw Horizontal
+          context.moveTo(h_x_from_line_1, h_y_from_line_1);
+          context.lineTo(h_x_to_line_1, h_y_to_line_1);
+          context.moveTo(h_x_from_line_2, h_y_from_line_2);
+          context.lineTo(h_x_to_line_2, h_y_to_line_2);
+
+          // Draw Vertical
+          context.moveTo(v_x_from_line_1, v_y_from_line_1);
+          context.lineTo(v_x_to_line_1, v_y_to_line_1);
+          context.moveTo(v_x_from_line_2, v_y_from_line_2);
+          context.lineTo(v_x_to_line_2, v_y_to_line_2);
+
+          context.stroke();
+
+
+          // Draw Text
+          // Top
+          context.font = 'normal 17pt arial';
+          context.textAlign = 'center';
+          context.fillStyle = '<?php echo $results[0][0]['color'];?>';
+          context.fillText('<?php echo $results[0][0]['name'];?>', top_text_x, top_text_y);
+          // Bot
+          context.fillStyle = '<?php echo $results[0][1]['color'];?>';
+          context.fillText('<?php echo $results[0][1]['name'];?>', bot_text_x, bot_text_y);
+          // Left
+          context.fillStyle = '<?php echo $results[0][4]['color'];?>';
+          context.fillText('<?php echo $results[0][4]['name'];?>', left_text_x, left_text_y);
+          // Right
+          context.fillStyle = '<?php echo $results[0][3]['color'];?>';
+          context.fillText('<?php echo $results[0][3]['name'];?>', right_text_x, right_text_y);
+        }
+
+
+
+        </script>
+
+
       </section>
     </div>
   </div>
 
   <script>
-    // Point 1
-    var result_X = <?php echo $final_point_X;?>;
-    var result_Y = <?php echo $final_point_Y;?>;
-    var biggerV = Math.abs(result_X) > Math.abs(result_Y) ? Math.abs(result_X) : Math.abs(result_Y);
-    var density = getDensity(biggerV, 15);
-    var radius = 10;
-
-    var margin_width = 180;
-    var margin_height = 100;
-    var space_width = 30;
-    var space_height = 30;
-
-    var canvas_width = $('#myCanvas').width();
-    var canvas_height = $('#myCanvas').height();
-
-    var point_root_X = canvas_width/2;
-    var point_root_Y = canvas_height/2;
-
-    var graph_width = canvas_width/2 - margin_width - space_width;
-    var graph_height = canvas_height/2 - margin_height - space_height;
-
-    var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext('2d');
-
-    // Axis value
-    // horizontal
-    h_x_from_line_1 = point_root_X - graph_width - space_width;
-    h_y_from_line_1 = point_root_Y;
-    h_x_to_line_1 = h_x_from_line_1 + graph_width;
-    h_y_to_line_1 = point_root_Y;
-
-    h_x_from_line_2 = point_root_X + space_width;
-    h_y_from_line_2 = point_root_Y;
-    h_x_to_line_2 = h_x_from_line_2 + graph_width;
-    h_y_to_line_2 = point_root_Y;
-
-    // vertical
-    v_x_from_line_1 = point_root_X;
-    v_y_from_line_1 = point_root_Y - space_height - graph_height;
-    v_x_to_line_1 = point_root_X;
-    v_y_to_line_1 = v_y_from_line_1 + graph_height;
-
-    v_x_from_line_2 = point_root_X
-    v_y_from_line_2 = point_root_Y + space_height;
-    v_x_to_line_2 = point_root_X
-    v_y_to_line_2 = v_y_from_line_2 + graph_height;
-
-    // Point 1 value
-    var point_X_to = ((graph_width + space_width) / density) * Math.abs(result_X);
-    var point_Y_to = ((graph_height + space_height) / density) * Math.abs(result_Y);
-    var centerX = result_X >= 0 ? (point_root_X + point_X_to) : (point_root_X - point_X_to);
-    var centerY = result_Y >= 0 ? (point_root_Y - point_Y_to) : (point_root_Y + point_Y_to);
-
-    // Text Value
-    var h_text_margin = 20;
-    var v_text_margin = 10;
-    var top_text_y = v_y_from_line_1 - h_text_margin;
-    var top_text_x = point_root_X;
-    var bot_text_y = v_y_to_line_2 + h_text_margin + 20;
-    var bot_text_x = point_root_X;
-
-    var left_text_y = point_root_Y;
-    var left_text_x = 0 + 90;
-    var right_text_y = point_root_Y;
-    var right_text_x = h_x_to_line_2 + 60 + v_text_margin;
-
-
-    // ====== Point 2
-    <?php
-      if (isset($results_2) && $results_2!="") {
-    ?>
-      var result_X_2 = <?php echo $final_point_X_2;?>;
-      var result_Y_2 = <?php echo $final_point_Y_2;?>;
-      var biggerV_2 = Math.abs(result_X_2) > Math.abs(result_Y_2) ? Math.abs(result_X_2) : Math.abs(result_Y_2);
-      var density_2 = getDensity(biggerV_2, 15);
-      density = density > density_2 ? density : density_2;
-      // Point 2 value
-      var point_X_to_2 = ((graph_width + space_width) / density) * Math.abs(result_X_2);
-      var point_Y_to_2 = ((graph_height + space_height) / density) * Math.abs(result_Y_2);
-      var centerX_2 = result_X_2 >= 0 ? (point_root_X + point_X_to_2) : (point_root_X - point_X_to_2);
-      var centerY_2 = result_Y_2 >= 0 ? (point_root_Y - point_Y_to_2) : (point_root_Y + point_Y_to_2);
-      var radius = 10;
-    <?php }
-    ?>
-
-
-    function renderGraph () {
-      // Begin Draw
-      context.beginPath();
-      // Draw Horizontal
-      context.moveTo(h_x_from_line_1, h_y_from_line_1);
-      context.lineTo(h_x_to_line_1, h_y_to_line_1);
-      context.moveTo(h_x_from_line_2, h_y_from_line_2);
-      context.lineTo(h_x_to_line_2, h_y_to_line_2);
-
-      // Draw Vertical
-      context.moveTo(v_x_from_line_1, v_y_from_line_1);
-      context.lineTo(v_x_to_line_1, v_y_to_line_1);
-      context.moveTo(v_x_from_line_2, v_y_from_line_2);
-      context.lineTo(v_x_to_line_2, v_y_to_line_2);
-
-      context.stroke();
-
-      // Draw point 1
-      context.beginPath();
-      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-      context.fillStyle = '<?php echo $final_color; ?>';
-      context.fill();
-      context.stroke();
-
-      // Draw Text Date 1
-      context.font = 'normal 10pt arial';
-      context.textAlign = 'center';
-      context.fillStyle = '<?php echo $results_1[0]['color'];?>';
-      context.fillText('<?php echo $results_1['updated_date'];?>', centerX, centerY + 25);
-
-      <?php
-        if (isset($results_2) && $results_2!="") {
-      ?>
-      // Draw point 2
-      context.beginPath();
-      context.arc(centerX_2, centerY_2, radius, 0, 2 * Math.PI, false);
-      context.fillStyle = '<?php echo $final_color_2; ?>';
-      context.fill();
-      context.stroke();
-
-      // Draw Text Date 2
-      context.font = 'normal 10pt arial';
-      context.textAlign = 'center';
-      context.fillStyle = '<?php echo $results_2[0]['color'];?>';
-      context.fillText('<?php echo $results_2['updated_date'];?>', centerX_2, centerY_2 + 25);
-
-      <?php }
-      ?>
-      // Draw Text
-      // Top
-      context.font = 'normal 17pt arial';
-      context.textAlign = 'center';
-      context.fillStyle = '<?php echo $results_1[0]['color'];?>';
-      context.fillText('<?php echo $results_1[0]['name'];?>', top_text_x, top_text_y);
-      // Bot
-      context.fillStyle = '<?php echo $results_1[1]['color'];?>';
-      context.fillText('<?php echo $results_1[1]['name'];?>', bot_text_x, bot_text_y);
-      // Left
-      context.fillStyle = '<?php echo $results_1[4]['color'];?>';
-      context.fillText('<?php echo $results_1[4]['name'];?>', left_text_x, left_text_y);
-      // Right
-      context.fillStyle = '<?php echo $results_1[3]['color'];?>';
-      context.fillText('<?php echo $results_1[3]['name'];?>', right_text_x, right_text_y);
-    }
 
     renderGraph ();
     renderNumbers ();
 
-    function getDensity (value, density) {
-      if (value <= density)
-        return density;
-      else {
-        return getDensity(value, density + 15);
-      }
-    }
 
     // Point Hover
     canvas.onmousemove = function(e) {
@@ -254,47 +211,38 @@
       context.clearRect(0, 0, canvas.width, canvas.height);
       renderGraph ();
       renderNumbers ();
-      if(isInPoint(x, y, centerX, centerY, radius)) {
-          // The mouse honestly hits the rect
-          renderCoord (centerX, centerY, radius, 1) ;
-      }
+
       <?php
-        if (isset($results_2) && $results_2!="") {
+      $index = 0;
       ?>
-      if(isInPoint(x, y, centerX_2, centerY_2, radius)) {
-          // The mouse honestly hits the rect
-          renderCoord (centerX_2, centerY_2, radius, 2) ;
+
+      for (var i = 0; i < coordidates_X.length; i++) {
+        renderPoint(coordidates_X[i], coordidates_Y[i], finalColors[i], updateDates[i]);
+        if(isInPoint(x, y, coordidates_X[i], coordidates_Y[i], 10)) {
+
+            // The mouse honestly hits the rect
+
+            var margin = 5;
+            // context.fillStyle = "gray";
+            // context.fillRect(centerX + margin, centerY - radius - margin, 50, -30);
+            // draw font in red
+            context.fillStyle = 'red';
+            context.font = "10pt sans-serif";
+            context.fillText('(' + final_point_X[i] + ', ' + final_point_Y[i] + ')', coordidates_X[i] + margin + 25, coordidates_Y[i] - radius - margin - 10);
+            <?php
+            $index++;
+            ?>
+        }
       }
-      <?php
-      }
-      ?>
+      // if(isInPoint(x, y, centerX, centerY, radius)) {
+      //     // The mouse honestly hits the rect
+      //     renderCoord (centerX, centerY, radius, 1) ;
+      // }
 
     }
 
     function isInPoint (x, y, centerX, centerY, radius) {
       return Math.round(Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2))) <= radius;
-    }
-
-    function renderCoord (centerX, centerY, radius, index) {
-      // index = 1: Point 1
-      // index = 2: Point 2
-      var margin = 5;
-      // context.fillStyle = "gray";
-      // context.fillRect(centerX + margin, centerY - radius - margin, 50, -30);
-      // draw font in red
-      context.fillStyle = 'red';
-      context.font = "10pt sans-serif";
-      if (index == 1)
-        context.fillText('(' + <?=$final_point_X?> + ', ' + <?=$final_point_Y?> + ')', centerX + margin + 25, centerY - radius - margin - 10);
-      else {
-        <?php
-          if (isset($results_2) && $results_2!="") {
-        ?>
-          context.fillText('(' + <?=$final_point_X_2?> + ', ' + <?=$final_point_Y_2?> + ')', centerX + margin + 25, centerY - radius - margin - 10);
-        <?php }?>
-      }
-
-      // context.fillText("Canvas Rocks!", 5, 100);
     }
 
     function renderNumbers () {
@@ -303,8 +251,8 @@
       var horizontal_root_Y = v_y_to_line_2;
       var vertical_root_X = h_x_from_line_1;
       var vertical_root_Y = point_root_Y;
-      var count_num = density; // -15 ~ 0 ~ + 15
-      var rate = density / 15;
+      var count_num = maxDensity; // -15 ~ 0 ~ + 15
+      var rate = maxDensity / 15;
 
       for (var i = 1; i <= count_num; i += 2*rate) {
         var this_num = i;
@@ -313,12 +261,12 @@
         context.textAlign = 'center';
         context.fillStyle = 'gray';
 
-        if (this_num != 0 && this_num != density) {
-          context.fillText(this_num, horizontal_root_X + this_num * ((graph_width + space_width) / density), horizontal_root_Y + 10);
-          context.fillText(this_num * -1, horizontal_root_X - this_num * ((graph_width + space_width) / density), horizontal_root_Y + 10);
+        if (this_num != 0 && this_num != maxDensity) {
+          context.fillText(this_num, horizontal_root_X + this_num * ((graph_width + space_width) / maxDensity), horizontal_root_Y + 10);
+          context.fillText(this_num * -1, horizontal_root_X - this_num * ((graph_width + space_width) / maxDensity), horizontal_root_Y + 10);
 
-          context.fillText(this_num * -1, vertical_root_X, vertical_root_Y + this_num * ((graph_height + space_width) / density) + 8);
-          context.fillText(this_num, vertical_root_X, vertical_root_Y - this_num * ((graph_height + space_width) / density));
+          context.fillText(this_num * -1, vertical_root_X, vertical_root_Y + this_num * ((graph_height + space_width) / maxDensity) + 8);
+          context.fillText(this_num, vertical_root_X, vertical_root_Y - this_num * ((graph_height + space_width) / maxDensity));
         }
 
       }

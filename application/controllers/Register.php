@@ -112,7 +112,7 @@ class Register extends CI_Controller{
 
   public function doRegister () {
     $this->load->model("Muserregister");
-
+    $this->load->model("Muserlogin");
     $data = $this->input->post();
     $dataUser = $this->session->all_userdata();
 
@@ -132,7 +132,9 @@ class Register extends CI_Controller{
     );
 
     $this->Muserregister->addNewUser($data_insert);
-    $this->session->set_userdata('user', $email);
+    $result = $this->Muserlogin->getInfoUser($email, 'psyflex');
+
+    $this->session->set_userdata('user', $result[0]);
     redirect(base_url());
   }
 
