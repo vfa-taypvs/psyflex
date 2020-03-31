@@ -16,10 +16,10 @@
       <header>
         <div class="container">
 
-          <div class="row">
-            <div class="col-md-3"><img src="<?php echo base_url(); ?>asset/img/home/logo.png" alt="logo" class="logo"><span class="company-name">Psyflex</span></div>
-            <div class="col-md-9">
-              <nav class="navbar menu-header">
+          <div class="row header">
+            <div class="header_logo"><img src="<?php echo base_url(); ?>asset/img/home/logo.png" alt="logo" class="logo"><span class="company-name">Psyflex</span></div>
+            <div class="header_nav">
+              <nav class="navbar">
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('home');?></a></li>
                     <li class="dropdown">
